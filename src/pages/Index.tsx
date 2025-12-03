@@ -1,7 +1,6 @@
 import Header from "@/components/landing/Header";
 import HeroSection from "@/components/landing/HeroSection";
-import ProblemSection from "@/components/landing/ProblemSection";
-import FeatureShowcase from "@/components/landing/FeatureShowcase";
+import ContentShowcase from "@/components/landing/ContentShowcase";
 import TestimonialsSection from "@/components/landing/TestimonialsSection";
 import ReasonsSection from "@/components/landing/ReasonsSection";
 import CTASection from "@/components/landing/CTASection";
@@ -13,8 +12,7 @@ const Index = () => {
       <Header />
       <main>
         <HeroSection />
-        <ProblemSection />
-        <FeatureShowcase />
+        <ContentShowcase />
         <TestimonialsSection />
         <ReasonsSection />
         <CTASection />
