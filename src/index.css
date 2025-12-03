@@ -87,7 +87,7 @@
   }
 
   h1, h2, h3, h4 {
-    @apply font-display uppercase tracking-tight;
+    @apply font-display uppercase tracking-wide font-normal;
   }
 }
 

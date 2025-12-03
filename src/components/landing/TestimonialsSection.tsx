@@ -1,39 +1,46 @@
+import avatarAnselm from "@/assets/avatar-anselm.png";
+import avatarMaya from "@/assets/avatar-maya.png";
+import avatarLauren from "@/assets/avatar-lauren.png";
+import avatarAhmed from "@/assets/avatar-ahmed.png";
+import avatarClaire from "@/assets/avatar-claire.png";
+import avatarMarcus from "@/assets/avatar-marcus.png";
+
 const testimonials = [
   {
-    name: "Sarah Chen",
-    handle: "@sarahcreates",
-    avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop",
-    content: "Mule Run changed my content game completely. I went from posting once a week to daily, and my engagement has tripled!",
+    name: "Anselm Richter",
+    role: "Startup Founder",
+    avatar: avatarAnselm,
+    content: "As a founder, I chain General Browser Operator for competitor scans, Smart Q for trial metrics, and Mindmap Generator for planning. In one afternoon, I go from market notes to an actionable roadmap with targets. Fundraising updates feel sharper because the data and story line up.",
   },
   {
-    name: "Marcus Johnson",
-    handle: "@marcusj_dev",
-    avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop",
-    content: "The AI understands my brand voice perfectly. It's like having a creative partner that never sleeps.",
+    name: "Maya Chen",
+    role: "Product Manager",
+    avatar: avatarMaya,
+    content: "Mindmap Generator is my thinking canvas. I paste messy notes and links, and it structures them into editable nodes. I regroup, tag risks, and assign owners. Kickoff meetings start with a shared map, not loose docs, and projects move with clearer scope and dependencies.",
   },
   {
-    name: "Elena Rodriguez",
-    handle: "@elena.designs",
-    avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&h=100&fit=crop",
-    content: "From YouTube to TikTok to Instagram—one click and I'm everywhere. This is the future of content creation.",
+    name: "Lauren Brooks",
+    role: "High School Teacher",
+    avatar: avatarLauren,
+    content: "YouTube Quick Scan turns 60‑minute lectures into clean outlines with quotes, timestamps, and key concepts. I pull the transcript, lift examples, and build slides faster. My prep dropped from an evening to under an hour, and class time goes to discussion, not scrubbing video.",
   },
   {
-    name: "David Kim",
-    handle: "@davidkim.ai",
-    avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=100&h=100&fit=crop",
-    content: "I saved 20+ hours per week on content creation. Now I focus on what matters—connecting with my audience.",
+    name: "Ahmed Saleh",
+    role: "Data Analyst",
+    avatar: avatarAhmed,
+    content: "Smart Q turns messy CSVs into clear visuals and findings. I drag in revenue, churn, and cohort files, then ask natural questions. It ships charts, trends, and outliers in minutes. Weekly reporting shrank from half a day to one hour, with fewer spreadsheet errors.",
   },
   {
-    name: "Aisha Patel",
-    handle: "@aisha_creates",
-    avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&h=100&fit=crop",
-    content: "The thumbnail generator alone is worth it. My CTR went from 3% to 12% overnight!",
+    name: "Claire Dupont",
+    role: "Med Student",
+    avatar: avatarClaire,
+    content: "Paper Review Agent turned my topic search into a curated reading list in minutes. It pulled recent, peer‑reviewed papers and trimmed duplicates. I went from guessing keywords to a tight stack of sources and a clean path to a literature review draft.",
   },
   {
-    name: "Tom Anderson",
-    handle: "@tomanderson",
-    avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&h=100&fit=crop",
-    content: "Finally, a tool that gets creators. Simple, fast, and actually useful. 10/10 would recommend.",
+    name: "Marcus Rodriguez",
+    role: "Graduate Student",
+    avatar: avatarMarcus,
+    content: "As a grad student, I read 15-20 research papers weekly for my thesis. I used to spend hours highlighting and taking scattered notes, then more hours reformatting them for my literature review. Now I paste each paper into Knowledge-Card Agent with 'Academic style, 4 cards.' In minutes, I have beautifully organized key findings, methodology, and implications—ready to drop into my thesis or share with my advisor. My literature review that used to take 3 weeks? Done in 5 days.",
   },
 ];
 
@@ -43,11 +50,14 @@ const TestimonialsSection = () => {
       <div className="max-w-7xl mx-auto px-6 md:px-10 lg:px-20">
         <div className="text-center mb-12">
           <span className="font-mono text-sm text-foreground/60 uppercase tracking-wider">
-            Loved by creators
+            User Stories
           </span>
-          <h2 className="font-display text-4xl md:text-5xl mt-2">
-            Hi this is a section title
+          <h2 className="text-4xl md:text-5xl mt-2">
+            Real Workflows, Real Results
           </h2>
+          <p className="text-lg text-foreground/70 mt-4 max-w-2xl mx-auto">
+            See how learners chain agents to go from sources to insight.
+          </p>
         </div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -60,14 +70,14 @@ const TestimonialsSection = () => {
                 <img
                   src={testimonial.avatar}
                   alt={testimonial.name}
-                  className="w-12 h-12 rounded-full object-cover border-2 border-highlight"
+                  className="w-14 h-14 rounded-full object-cover object-center border-2 border-highlight"
                 />
                 <div>
                   <p className="font-semibold">{testimonial.name}</p>
-                  <p className="text-sm text-foreground/60">{testimonial.handle}</p>
+                  <p className="text-sm text-foreground/60">{testimonial.role}</p>
                 </div>
               </div>
-              <p className="text-foreground/80 leading-relaxed">{testimonial.content}</p>
+              <p className="text-foreground/80 leading-relaxed text-sm">{testimonial.content}</p>
             </div>
           ))}
         </div>
