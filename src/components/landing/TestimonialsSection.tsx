@@ -13,7 +13,7 @@ const testimonials = [
     content: "As a founder, I chain General Browser Operator for competitor scans, Smart Q for trial metrics, and Mindmap Generator for planning. In one afternoon, I go from market notes to an actionable roadmap with targets. Fundraising updates feel sharper because the data and story line up.",
   },
   {
-    name: "Maya Chen",
+    name: "James Patterson",
     role: "Product Manager",
     avatar: avatarMaya,
     content: "Mindmap Generator is my thinking canvas. I paste messy notes and links, and it structures them into editable nodes. I regroup, tag risks, and assign owners. Kickoff meetings start with a shared map, not loose docs, and projects move with clearer scope and dependencies.",
@@ -40,7 +40,7 @@ const testimonials = [
     name: "Marcus Rodriguez",
     role: "Graduate Student",
     avatar: avatarMarcus,
-    content: "As a grad student, I read 15-20 research papers weekly for my thesis. I used to spend hours highlighting and taking scattered notes, then more hours reformatting them for my literature review. Now I paste each paper into Knowledge-Card Agent with 'Academic style, 4 cards.' In minutes, I have beautifully organized key findings, methodology, and implications—ready to drop into my thesis or share with my advisor. My literature review that used to take 3 weeks? Done in 5 days.",
+    content: "As a grad student reading 15-20 papers weekly, I used to spend hours highlighting and reformatting notes. Now I paste each paper into Knowledge-Card Agent with 'Academic style, 4 cards' and get organized key findings, methodology, and implications in minutes—ready for my thesis. My literature review went from 3 weeks to 5 days.",
   },
 ];
 
@@ -49,10 +49,7 @@ const TestimonialsSection = () => {
     <section className="py-16 md:py-24 bg-cream border-y-2 border-border">
       <div className="max-w-7xl mx-auto px-6 md:px-10 lg:px-20">
         <div className="text-center mb-12">
-          <span className="font-mono text-sm text-foreground/60 uppercase tracking-wider">
-            User Stories
-          </span>
-          <h2 className="text-4xl md:text-5xl mt-2">
+          <h2 className="text-4xl md:text-5xl">
             Real Workflows, Real Results
           </h2>
           <p className="text-lg text-foreground/70 mt-4 max-w-2xl mx-auto">
