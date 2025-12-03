@@ -13,7 +13,7 @@ const Header = () => {
           <a href="https://mulerun.com/agent-store" className="text-sm font-bold text-foreground/80 hover:text-foreground transition-colors">
             AGENT STORE
           </a>
-          <a href="https://mulerun.com/ambassador" className="text-sm font-bold text-foreground/80 hover:text-foreground transition-colors">
+          <a href="https://mulerun.com/ambassadors" className="text-sm font-bold text-foreground/80 hover:text-foreground transition-colors">
             AMBASSADORS
           </a>
           <a href="https://mulerun.com/docs" className="text-sm font-bold text-foreground/80 hover:text-foreground transition-colors">

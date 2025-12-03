@@ -23,7 +23,7 @@ const HeroSection = () => {
     
     const interval = setInterval(() => {
       nextSlide();
-    }, 2000);
+    }, 5000);
 
     return () => clearInterval(interval);
   }, [isPaused, nextSlide]);
@@ -33,7 +33,7 @@ const HeroSection = () => {
       <div className="max-w-7xl mx-auto flex flex-col lg:flex-row gap-12 lg:gap-16 items-center">
         <div className="flex-1 max-w-2xl">
           <h1 className="mb-6">
-            <span className="text-5xl md:text-6xl lg:text-7xl leading-[1.1] block">
+            <span className="text-5xl md:text-6xl lg:text-7xl leading-[1.1] block tracking-widest">
               Your AI study partners
             </span>
             <span className="text-3xl md:text-4xl lg:text-5xl leading-[1.2] block mt-2 text-foreground/80">
@@ -43,8 +43,10 @@ const HeroSection = () => {
           <p className="text-lg md:text-xl text-foreground/70 mb-8 leading-relaxed max-w-xl">
             Our AI agents read, explain, map, and quiz—so you learn faster and smarter!
           </p>
-          <Button variant="hero" size="lg" className="font-mono text-base gap-2">
-            START FREE <ArrowRight className="w-4 h-4" />
+          <Button variant="hero" size="lg" className="font-mono text-base gap-2" asChild>
+            <a href="https://mulerun.com/agent-store">
+              START FREE <ArrowRight className="w-4 h-4" />
+            </a>
           </Button>
         </div>
 

@@ -4,7 +4,6 @@ import ContentShowcase from "@/components/landing/ContentShowcase";
 import FeaturesSection from "@/components/landing/FeaturesSection";
 import TestimonialsSection from "@/components/landing/TestimonialsSection";
 import ReasonsSection from "@/components/landing/ReasonsSection";
-import CTASection from "@/components/landing/CTASection";
 import Footer from "@/components/landing/Footer";
 
 const Index = () => {
@@ -17,7 +16,6 @@ const Index = () => {
         <FeaturesSection />
         <TestimonialsSection />
         <ReasonsSection />
-        <CTASection />
       </main>
       <Footer />
     </div>
