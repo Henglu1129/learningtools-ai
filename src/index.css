@@ -40,7 +40,7 @@
     --purple: 260 80% 90%;
     --purple-foreground: 260 50% 30%;
 
-    --cream: 48 100% 96%;
+    --cream: 0 0% 95%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 100%;
@@ -87,7 +87,7 @@
   }
 
   h1, h2, h3, h4 {
-    @apply font-display uppercase tracking-wide font-normal;
+    @apply font-display uppercase tracking-wider font-light;
   }
 }
 

@@ -63,16 +63,15 @@ const ReasonsSection = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Calculate icon positions based on scroll
+  // Calculate icon positions based on scroll - starts fully spread
   const getIconStyle = (index: number) => {
     const centerIndex = 3; // Mulerun is in the center
     const distance = index - centerIndex;
-    const convergeFactor = Math.min(scrollProgress * 2, 1);
     
-    // Icons converge toward center
-    const translateX = distance * 80 * (1 - convergeFactor);
-    const scale = 1 + (convergeFactor * (index === centerIndex ? 0.3 : -0.2));
-    const opacity = index === centerIndex ? 1 : (1 - convergeFactor * 0.8);
+    // Icons converge toward center as scroll progresses
+    const translateX = distance * 80 * (1 - scrollProgress);
+    const scale = 1 + (scrollProgress * (index === centerIndex ? 0.3 : -0.2));
+    const opacity = index === centerIndex ? 1 : (1 - scrollProgress * 0.8);
     
     return {
       transform: `translateX(${translateX}px) scale(${scale})`,
@@ -94,7 +93,7 @@ const ReasonsSection = () => {
           </p>
 
           {/* Using Mulerun subtitle */}
-          <h3 className="text-xl md:text-2xl text-center mb-6 tracking-wide">
+          <h3 className="font-mono text-xl md:text-2xl text-center mb-6 tracking-wide normal-case font-bold">
             Using Mulerun is like having
           </h3>
 
@@ -116,7 +115,7 @@ const ReasonsSection = () => {
           </div>
 
           {/* Price Comparison */}
-          <h3 className="text-xl md:text-2xl text-center mb-6 tracking-wide font-normal">
+          <h3 className="text-xl md:text-2xl text-center mb-6 tracking-widest font-normal normal-case">
             Multiple pro platforms — <span className="font-bold bg-highlight px-2">Mulerun</span> handles it all.
           </h3>
           
@@ -125,14 +124,27 @@ const ReasonsSection = () => {
               <p className="text-sm font-medium text-foreground/70 mb-3">Buy 4 pro platforms separately</p>
               <p className="text-2xl md:text-3xl font-bold text-foreground/60">$99<span className="text-base font-normal">/month</span></p>
             </div>
-            <div className="bg-highlight/30 border-l-4 border-l-highlight border border-border p-6 rounded-lg">
+            <a 
+              href="https://mulerun.com/pricing" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="group bg-highlight/30 border-l-4 border-l-highlight border border-border p-6 rounded-lg relative overflow-hidden transition-all hover:shadow-lg"
+            >
               <p className="text-sm font-medium text-foreground/70 mb-3">Get the same with Mulerun</p>
               <div className="flex items-baseline gap-3 flex-wrap">
                 <p className="text-2xl md:text-3xl font-bold text-foreground">$15.9<span className="text-base font-normal">/month</span></p>
-                <span className="bg-orange-200 px-2 py-0.5 rounded text-sm font-medium">Save 75%</span>
+                <span className="bg-orange-200 px-2 py-0.5 rounded text-sm font-medium">Save 80%</span>
               </div>
-              <p className="text-xs text-foreground/50 mt-1">Annual plan (20% off)</p>
-            </div>
+              <p className="text-xs text-foreground/50 mt-1">
+                <span className="line-through">$19.9/month</span> · Annual plan (20% off)
+              </p>
+              {/* Hover overlay */}
+              <div className="absolute inset-0 bg-primary/90 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <span className="text-primary-foreground font-medium flex items-center gap-2">
+                  Learn more about pricing <ArrowRight className="w-4 h-4" />
+                </span>
+              </div>
+            </a>
           </div>
 
           {/* Benefits */}
@@ -147,8 +159,8 @@ const ReasonsSection = () => {
                 className="bg-highlight/20 border-l-4 border-l-highlight border border-border p-4 rounded-lg text-center"
               >
                 <benefit.icon className="w-8 h-8 mx-auto mb-3 text-foreground/70" />
-                <p className="font-semibold text-sm mb-2">{benefit.title}</p>
-                <p className="text-xs text-foreground/60 text-justify">{benefit.description}</p>
+                <p className="font-semibold text-base mb-2">{benefit.title}</p>
+                <p className="text-sm text-foreground/60 text-justify">{benefit.description}</p>
               </div>
             ))}
           </div>

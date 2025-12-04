@@ -1,7 +1,8 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const Footer = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const [hoveredCell, setHoveredCell] = useState<number | null>(null);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -18,36 +19,42 @@ const Footer = () => {
     resizeCanvas();
     window.addEventListener('resize', resizeCanvas);
 
-    // Create stars
-    const stars: { x: number; y: number; size: number; opacity: number; twinkleSpeed: number }[] = [];
-    const starCount = 150;
+    // Create particles
+    const particles: { x: number; y: number; size: number; speed: number; opacity: number }[] = [];
+    const particleCount = 50;
 
-    for (let i = 0; i < starCount; i++) {
-      stars.push({
+    for (let i = 0; i < particleCount; i++) {
+      particles.push({
         x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        size: Math.random() * 2 + 0.5,
-        opacity: Math.random() * 0.8 + 0.2,
-        twinkleSpeed: Math.random() * 0.02 + 0.01,
+        y: canvas.height + Math.random() * 100,
+        size: Math.random() * 2 + 1,
+        speed: Math.random() * 0.5 + 0.2,
+        opacity: Math.random() * 0.5 + 0.2,
       });
     }
 
     let animationId: number;
-    let time = 0;
 
     const animate = () => {
       ctx.fillStyle = '#000';
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-      stars.forEach((star) => {
-        const twinkle = Math.sin(time * star.twinkleSpeed) * 0.3 + 0.7;
+      particles.forEach((particle) => {
+        // Move particle up
+        particle.y -= particle.speed;
+        
+        // Reset if out of bounds
+        if (particle.y < -10) {
+          particle.y = canvas.height + 10;
+          particle.x = Math.random() * canvas.width;
+        }
+
         ctx.beginPath();
-        ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(255, 255, 255, ${star.opacity * twinkle})`;
+        ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(255, 255, 255, ${particle.opacity})`;
         ctx.fill();
       });
 
-      time++;
       animationId = requestAnimationFrame(animate);
     };
 
@@ -59,6 +66,9 @@ const Footer = () => {
     };
   }, []);
 
+  // Grid cells for MuleRun effect (9 columns x 2 rows = 18 cells)
+  const gridCells = Array.from({ length: 18 }, (_, i) => i);
+
   return (
     <footer className="relative flex h-[400px] md:h-[500px] w-full flex-col justify-between overflow-hidden bg-black">
       <canvas 
@@ -68,10 +78,28 @@ const Footer = () => {
       
       {/* Content */}
       <div className="relative z-10 flex flex-col items-center justify-start pt-12 md:pt-16 flex-1">
-        {/* MuleRun Title */}
-        <h2 className="font-display text-6xl md:text-8xl lg:text-[120px] text-white tracking-tight">
-          Mule<span className="text-highlight">R</span>un
-        </h2>
+        {/* MuleRun Title with Grid Effect */}
+        <div className="relative">
+          <h2 className="font-display text-6xl md:text-8xl lg:text-[120px] text-white tracking-tight">
+            Mule<span className="text-highlight">R</span>un
+          </h2>
+          
+          {/* Grid overlay for hover effect */}
+          <div className="absolute inset-0 grid grid-cols-9 grid-rows-2">
+            {gridCells.map((index) => (
+              <div
+                key={index}
+                className="relative cursor-pointer"
+                onMouseEnter={() => setHoveredCell(index)}
+                onMouseLeave={() => setHoveredCell(null)}
+              >
+                {hoveredCell === index && (
+                  <div className="absolute inset-0 bg-highlight mix-blend-difference" />
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
         
         {/* Tagline */}
         <div className="mt-6 text-center text-white/70 text-base md:text-lg">
