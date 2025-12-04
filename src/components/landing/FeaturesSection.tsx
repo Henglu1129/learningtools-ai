@@ -75,17 +75,17 @@ const FeaturesSection = () => {
               } items-center gap-8 md:gap-16`}
             >
               {/* Text Content */}
-              <div className="flex-1 space-y-2">
+              <div className={`flex-1 space-y-1 ${feature.imagePosition === "left" ? "md:text-left" : "md:text-right"}`}>
                 <h3 className="text-3xl md:text-4xl lg:text-5xl">
                   {feature.title}
                 </h3>
                 <span className="font-mono text-lg md:text-xl text-foreground/60 uppercase tracking-wider block">
                   {feature.category}
                 </span>
-                <p className="text-base text-foreground/70 max-w-md pb-4">
+                <p className="text-base text-foreground/70 max-w-md pb-3">
                   {feature.description}
                 </p>
-                <a href={feature.link} target="_blank" rel="noopener noreferrer">
+                <a href={feature.link} target="_blank" rel="noopener noreferrer" className={`inline-block ${feature.imagePosition === "left" ? "" : "md:ml-auto"}`}>
                   <Button className="bg-foreground text-background hover:bg-foreground/90 px-6 py-3 text-sm font-medium">
                     Try it for free
                     <ArrowRight className="ml-2 h-4 w-4" />

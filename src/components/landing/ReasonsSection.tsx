@@ -9,11 +9,13 @@ import iconOtter from "@/assets/icon-otter.png";
 import iconHeygen from "@/assets/icon-heygen.png";
 import iconMiro from "@/assets/icon-miro.png";
 
-const platformIcons = [
-  { name: "Quizlet", icon: iconQuizlet },
+const leftIcons = [
   { name: "Grammarly", icon: iconGrammarly },
+  { name: "Quizlet", icon: iconQuizlet },
   { name: "Copilot", icon: iconCopilot },
-  { name: "Mulerun", icon: iconMulerun },
+];
+
+const rightIcons = [
   { name: "Otter", icon: iconOtter },
   { name: "Heygen", icon: iconHeygen },
   { name: "Miro", icon: iconMiro },
@@ -49,12 +51,9 @@ const ReasonsSection = () => {
       const rect = sectionRef.current.getBoundingClientRect();
       const windowHeight = window.innerHeight;
       
-      // Calculate progress based on element position
-      const start = windowHeight;
-      const end = -rect.height;
-      const current = rect.top;
-      
-      const progress = Math.max(0, Math.min(1, (start - current) / (start - end)));
+      // Start animation when element is 1/3 into view
+      const triggerPoint = windowHeight * 0.67;
+      const progress = Math.max(0, Math.min(1, (triggerPoint - rect.top) / (windowHeight / 3)));
       setScrollProgress(progress);
     };
 
@@ -64,26 +63,35 @@ const ReasonsSection = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Calculate icon positions based on scroll - converge completely to center
-  const getIconStyle = (index: number) => {
-    const centerIndex = 3; // Mulerun is in the center
-    const distance = index - centerIndex;
-    const convergeFactor = Math.min(scrollProgress * 2.5, 1);
+  // Calculate side icon styles - converge to center and fade
+  const getSideIconStyle = (index: number, side: 'left' | 'right') => {
+    const convergeFactor = Math.min(scrollProgress * 1.5, 1);
     
-    // Icons converge toward center and disappear except center
-    const translateX = distance * 80 * (1 - convergeFactor);
-    const isCenter = index === centerIndex;
+    // Distance from center increases with index
+    const baseDistance = (index + 1) * 70;
+    const translateX = side === 'left' 
+      ? -baseDistance * (1 - convergeFactor)
+      : baseDistance * (1 - convergeFactor);
     
-    // Center icon grows, others shrink and fade
-    const scale = isCenter 
-      ? 1 + (convergeFactor * 0.5) 
-      : Math.max(0, 1 - convergeFactor * 1.5);
-    const opacity = isCenter ? 1 : Math.max(0, 1 - convergeFactor * 1.5);
+    // Fade out as they converge
+    const opacity = Math.max(0, 1 - convergeFactor * 1.2);
+    const scale = Math.max(0, 1 - convergeFactor * 0.8);
     
     return {
       transform: `translateX(${translateX}px) scale(${scale})`,
       opacity: opacity,
       transition: 'transform 0.1s ease-out, opacity 0.1s ease-out',
+    };
+  };
+
+  // Center icon grows as others converge
+  const getCenterIconStyle = () => {
+    const convergeFactor = Math.min(scrollProgress * 1.5, 1);
+    const scale = 1 + (convergeFactor * 0.3);
+    
+    return {
+      transform: `scale(${scale})`,
+      transition: 'transform 0.1s ease-out',
     };
   };
 
@@ -99,18 +107,46 @@ const ReasonsSection = () => {
             <span className="bg-highlight px-3 py-1 inline-block">Multiple pro tools, a fraction of the price.</span>
           </p>
 
-          {/* Using Mulerun subtitle - italic style */}
-          <h3 className="text-xl md:text-2xl text-center mb-6 tracking-wide italic font-body normal-case">
-            Using Mulerun is like having
+          {/* Using Mulerun subtitle */}
+          <h3 className="text-xl md:text-2xl text-center mb-6 tracking-wide font-body normal-case">
+            Using <span className="font-bold bg-highlight px-2">Mulerun</span> is like having
           </h3>
 
           {/* Platform Icons with convergence animation */}
           <div className="flex justify-center items-center gap-2 mb-12 overflow-hidden py-4">
-            {platformIcons.map((platform, index) => (
+            {/* Left icons */}
+            {leftIcons.map((platform, index) => (
               <div
-                key={index}
+                key={`left-${index}`}
                 className="w-12 h-12 md:w-14 md:h-14 rounded-xl border-2 border-border bg-background flex items-center justify-center overflow-hidden"
-                style={getIconStyle(index)}
+                style={getSideIconStyle(leftIcons.length - 1 - index, 'left')}
+              >
+                <img 
+                  src={platform.icon} 
+                  alt={platform.name}
+                  className="w-10 h-10 md:w-11 md:h-11 object-contain"
+                />
+              </div>
+            ))}
+            
+            {/* Center Mulerun icon */}
+            <div
+              className="w-14 h-14 md:w-16 md:h-16 rounded-xl border-2 border-highlight bg-background flex items-center justify-center overflow-hidden z-10"
+              style={getCenterIconStyle()}
+            >
+              <img 
+                src={iconMulerun} 
+                alt="Mulerun"
+                className="w-12 h-12 md:w-14 md:h-14 object-contain"
+              />
+            </div>
+            
+            {/* Right icons */}
+            {rightIcons.map((platform, index) => (
+              <div
+                key={`right-${index}`}
+                className="w-12 h-12 md:w-14 md:h-14 rounded-xl border-2 border-border bg-background flex items-center justify-center overflow-hidden"
+                style={getSideIconStyle(index, 'right')}
               >
                 <img 
                   src={platform.icon} 
@@ -121,27 +157,24 @@ const ReasonsSection = () => {
             ))}
           </div>
 
-          {/* Price Comparison - italic style for subtitle */}
-          <h3 className="text-xl md:text-2xl text-center mb-6 tracking-wide font-body normal-case italic">
-            Multiple pro platforms — <span className="font-bold not-italic bg-highlight px-2">Mulerun</span> handles it all.
+          {/* Price Comparison */}
+          <h3 className="text-xl md:text-2xl text-center mb-6 tracking-wide font-body normal-case">
+            Multiple pro platforms — <span className="font-bold bg-highlight px-2">Mulerun</span> handles it all.
           </h3>
           
           <div className="grid md:grid-cols-2 gap-4 mb-12">
-            <div className="bg-background border-l-4 border-l-muted-foreground/50 border border-border p-6 rounded-lg text-center">
-              <p className="text-sm font-medium text-foreground/70 mb-3">Buy 4 pro platforms separately</p>
-              <p className="text-2xl md:text-3xl font-bold text-foreground/60">$99<span className="text-base font-normal">/month</span></p>
+            <div className="bg-background border-l-4 border-l-muted-foreground/50 border border-border p-6 rounded-lg flex flex-col items-center justify-center">
+              <p className="text-sm font-medium text-foreground/70 mb-3 text-center">Buy 4 pro platforms separately</p>
+              <p className="text-2xl md:text-3xl font-bold text-foreground/60 text-center">$99<span className="text-base font-normal">/month</span></p>
             </div>
             <div 
-              className="bg-highlight/30 border-l-4 border-l-highlight border border-border p-6 rounded-lg relative group cursor-pointer transition-all duration-300 hover:shadow-lg"
+              className="bg-highlight/30 border-l-4 border-l-highlight border border-border p-6 rounded-lg relative group cursor-pointer transition-all duration-300 hover:shadow-lg flex flex-col justify-center items-start"
               onMouseEnter={() => setIsHovered(true)}
               onMouseLeave={() => setIsHovered(false)}
             >
               <p className="text-sm font-medium text-foreground/70 mb-3">Get the same with Mulerun</p>
-              <div className="flex items-baseline gap-3 flex-wrap justify-center">
-                <p className="text-2xl md:text-3xl font-bold text-foreground">$19.9<span className="text-base font-normal">/month</span></p>
-                <span className="bg-orange-200 px-2 py-0.5 rounded text-sm font-medium">Save 75%</span>
-              </div>
-              <p className="text-xs text-foreground/50 mt-1 text-center">cancel anytime [PRICE in USD]</p>
+              <p className="text-2xl md:text-3xl font-bold text-foreground">$19.9<span className="text-base font-normal">/month</span></p>
+              <p className="text-xs text-foreground/50 mt-1">cancel anytime [PRICE in USD]</p>
               
               {/* Hover overlay with pricing button */}
               <div className={`absolute inset-0 bg-primary/90 rounded-lg flex items-center justify-center transition-opacity duration-300 ${isHovered ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
@@ -159,20 +192,20 @@ const ReasonsSection = () => {
             </div>
           </div>
 
-          {/* Benefits - italic style for subtitle */}
-          <h3 className="text-xl md:text-2xl text-center mb-6 font-body normal-case italic">
-            Beyond Price — <span className="font-semibold not-italic">More Convenience with Mulerun</span>
+          {/* Benefits */}
+          <h3 className="text-xl md:text-2xl text-center mb-6 font-body normal-case">
+            Beyond Price — More Convenience with <span className="font-bold bg-highlight px-2">Mulerun</span>
           </h3>
           
           <div className="grid md:grid-cols-3 gap-4 mb-10">
             {benefits.map((benefit, index) => (
               <div
                 key={index}
-                className="bg-highlight/20 border-l-4 border-l-highlight border border-border p-5 rounded-lg text-center"
+                className="bg-highlight/20 border-l-4 border-l-highlight border border-border p-5 rounded-lg text-left"
               >
-                <benefit.icon className="w-10 h-10 mx-auto mb-4 text-foreground/70" />
-                <p className="font-semibold text-base mb-3">{benefit.title}</p>
-                <p className="text-sm text-foreground/60 text-justify leading-relaxed">{benefit.description}</p>
+                <benefit.icon className="w-10 h-10 mb-4 text-foreground/70" />
+                <p className="font-semibold text-lg mb-3">{benefit.title}</p>
+                <p className="text-base text-foreground/60 leading-relaxed">{benefit.description}</p>
               </div>
             ))}
           </div>

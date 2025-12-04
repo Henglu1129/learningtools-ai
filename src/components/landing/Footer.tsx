@@ -94,9 +94,19 @@ const Footer = () => {
       
       <div className="relative z-10 flex flex-col items-center justify-start pt-12 md:pt-16 flex-1">
         <div className="relative">
-          <h2 className="font-display text-6xl md:text-8xl lg:text-[120px] text-white tracking-tight select-none">
-            Mule<span className="text-highlight">R</span>un
+          {/* White text layer */}
+          <h2 className="text-6xl md:text-8xl lg:text-[120px] text-white tracking-tight select-none font-bold" style={{ fontFamily: 'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif' }}>
+            MuleRun
           </h2>
+          {/* Colored overlay layer for hover effect */}
+          <div className="absolute inset-0 pointer-events-none">
+            <h2 className="text-6xl md:text-8xl lg:text-[120px] tracking-tight select-none font-bold" style={{ fontFamily: 'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif', color: 'transparent' }}>
+              <span style={{ color: '#E91E8C' }}>M</span>
+              <span style={{ color: '#1E9E8C' }}>u</span>
+              <span style={{ color: 'white' }}>leRun</span>
+            </h2>
+          </div>
+          {/* Grid overlay for hover interaction */}
           <div className="absolute inset-0 grid grid-rows-2 grid-cols-9">
             {cells.map((index) => (
               <div
@@ -105,9 +115,10 @@ const Footer = () => {
                 onMouseEnter={() => setHoveredCell(index)}
                 onMouseLeave={() => setHoveredCell(null)}
               >
+                {/* When hovered, show the colored version underneath */}
                 <div 
-                  className={`absolute inset-0 bg-white transition-opacity duration-200 ${hoveredCell === index ? 'opacity-100' : 'opacity-0'}`}
-                  style={{ mixBlendMode: 'difference' }}
+                  className={`absolute inset-0 transition-opacity duration-200 ${hoveredCell === index ? 'opacity-0' : 'opacity-100'}`}
+                  style={{ backgroundColor: 'black' }}
                 />
               </div>
             ))}
