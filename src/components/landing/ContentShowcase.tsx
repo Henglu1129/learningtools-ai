@@ -101,7 +101,7 @@ const ContentShowcase = () => {
             >
               {/* Text Content */}
               <div className="flex-1 space-y-4">
-                <h3 className="font-body text-2xl md:text-3xl lg:text-4xl font-bold underline decoration-2 underline-offset-4 normal-case tracking-normal">
+                <h3 className="font-body text-2xl md:text-3xl lg:text-4xl font-bold normal-case tracking-normal">
                   {card.title}
                 </h3>
                 <p className="text-lg text-foreground/70 max-w-lg">
@@ -119,7 +119,7 @@ const ContentShowcase = () => {
                 >
                   <div className="aspect-[4/3] flex flex-col">
                     <div className="p-4 border-b border-border bg-card shrink-0">
-                      <h4 className="font-semibold text-lg">{card.hoverTitle}</h4>
+                      <h4 className="font-semibold text-lg tracking-wider">{card.hoverTitle}</h4>
                     </div>
                     <div className="flex-1 overflow-hidden">
                       <img
