@@ -51,9 +51,19 @@ const ReasonsSection = () => {
       const rect = sectionRef.current.getBoundingClientRect();
       const windowHeight = window.innerHeight;
       
-      // Start animation when element is 1/3 into view
-      const triggerPoint = windowHeight * 0.67;
-      const progress = Math.max(0, Math.min(1, (triggerPoint - rect.top) / (windowHeight / 3)));
+      // Start animation when section is 2/3 visible in viewport
+      const sectionVisibleTop = windowHeight - rect.top;
+      const sectionHeight = rect.height;
+      const visibleRatio = sectionVisibleTop / sectionHeight;
+      
+      // Only start animation when 2/3 of section is visible
+      if (visibleRatio < 0.67) {
+        setScrollProgress(0);
+        return;
+      }
+      
+      // Progress from 0 to 1 over 1/3 screen scroll after trigger
+      const progress = Math.max(0, Math.min(1, (visibleRatio - 0.67) / 0.33));
       setScrollProgress(progress);
     };
 
@@ -163,7 +173,7 @@ const ReasonsSection = () => {
           </h3>
           
           <div className="grid md:grid-cols-2 gap-4 mb-12">
-            <div className="bg-background border-l-4 border-l-muted-foreground/50 border border-border p-6 rounded-lg flex flex-col items-center justify-center">
+            <div className="bg-background border-l-4 border-l-muted-foreground/50 border border-border p-6 rounded-lg flex flex-col justify-center items-start">
               <p className="text-sm font-medium text-foreground/70 mb-3 text-center">Buy 4 pro platforms separately</p>
               <p className="text-2xl md:text-3xl font-bold text-foreground/60 text-center">$99<span className="text-base font-normal">/month</span></p>
             </div>

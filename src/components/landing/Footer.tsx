@@ -93,35 +93,62 @@ const Footer = () => {
       <canvas ref={canvasRef} className="absolute inset-0 h-full w-full pointer-events-none" />
       
       <div className="relative z-10 flex flex-col items-center justify-start pt-12 md:pt-16 flex-1">
-        <div className="relative">
-          {/* White text layer */}
-          <h2 className="text-6xl md:text-8xl lg:text-[120px] text-white tracking-tight select-none font-bold" style={{ fontFamily: 'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif' }}>
+        <div className="relative mule-run-title-wrapper">
+          {/* White text layer (base) */}
+          <h2 
+            className="text-6xl md:text-8xl lg:text-[132px] text-white tracking-tight select-none font-black"
+            style={{ fontFamily: 'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif', lineHeight: 1 }}
+          >
             MuleRun
           </h2>
-          {/* Colored overlay layer for hover effect */}
-          <div className="absolute inset-0 pointer-events-none">
-            <h2 className="text-6xl md:text-8xl lg:text-[120px] tracking-tight select-none font-bold" style={{ fontFamily: 'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif', color: 'transparent' }}>
-              <span style={{ color: '#E91E8C' }}>M</span>
-              <span style={{ color: '#1E9E8C' }}>u</span>
-              <span style={{ color: 'white' }}>leRun</span>
-            </h2>
-          </div>
-          {/* Grid overlay for hover interaction */}
-          <div className="absolute inset-0 grid grid-rows-2 grid-cols-9">
-            {cells.map((index) => (
-              <div
-                key={index}
-                className="relative cursor-pointer overflow-hidden"
-                onMouseEnter={() => setHoveredCell(index)}
-                onMouseLeave={() => setHoveredCell(null)}
-              >
-                {/* When hovered, show the colored version underneath */}
-                <div 
-                  className={`absolute inset-0 transition-opacity duration-200 ${hoveredCell === index ? 'opacity-0' : 'opacity-100'}`}
-                  style={{ backgroundColor: 'black' }}
-                />
-              </div>
-            ))}
+          
+          {/* Grid overlay for hover interaction with green text effect */}
+          <div 
+            className="absolute inset-0 grid grid-rows-2 grid-cols-9"
+            style={{ width: '100%', height: '100%' }}
+          >
+            {cells.map((index) => {
+              const col = index % 9;
+              const row = Math.floor(index / 9);
+              // Calculate offset for each cell's text position
+              const colPercent = (col / 9) * 100;
+              const rowPercent = (row / 2) * 100;
+              
+              return (
+                <div
+                  key={index}
+                  className="relative cursor-pointer overflow-hidden"
+                  onMouseEnter={() => setHoveredCell(index)}
+                  onMouseLeave={() => setHoveredCell(null)}
+                >
+                  {/* Cell background - darkens on hover */}
+                  <div 
+                    className="absolute inset-0 transition-all duration-300"
+                    style={{ 
+                      backgroundColor: hoveredCell === index ? 'rgba(0, 0, 0, 0.4)' : 'transparent'
+                    }}
+                  />
+                  
+                  {/* Green text layer - visible on hover */}
+                  <div className="absolute inset-0 overflow-hidden">
+                    <div
+                      className="text-6xl md:text-8xl lg:text-[132px] font-black select-none whitespace-nowrap transition-all duration-300"
+                      style={{ 
+                        fontFamily: 'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+                        lineHeight: 1,
+                        color: hoveredCell === index ? '#00ff88' : 'transparent',
+                        WebkitTextStroke: hoveredCell === index ? 'none' : '1px rgba(0, 255, 136, 0.3)',
+                        transform: `translate(-${colPercent}%, -${rowPercent}%)`,
+                        width: '900%',
+                        height: '200%',
+                      }}
+                    >
+                      MuleRun
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
           </div>
         </div>
         
