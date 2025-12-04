@@ -29,7 +29,7 @@ const HeroSection = () => {
   }, [isPaused, nextSlide]);
 
   return (
-    <section className="px-6 md:px-10 lg:px-20 py-16 md:py-24">
+    <section className="px-6 md:px-10 lg:px-20 py-16 md:py-24 bg-background">
       <div className="max-w-7xl mx-auto flex flex-col lg:flex-row gap-12 lg:gap-16 items-center">
         <div className="flex-1 max-w-2xl">
           <h1 className="mb-6">
