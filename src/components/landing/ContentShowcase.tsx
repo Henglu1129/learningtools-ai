@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import showcasePaper from "@/assets/showcase-paper.webp";
 import showcaseExplain from "@/assets/showcase-explain.webp";
@@ -33,51 +33,58 @@ const contentCards = [
 
 const ContentShowcase = () => {
   const [highlightProgress, setHighlightProgress] = useState(0);
-  const titleRef = useRef<HTMLHeadingElement>(null);
 
   useEffect(() => {
-    const handleScroll = () => {
-      if (!titleRef.current) return;
+    // Auto-play animation with easing (fast then slow)
+    let startTime: number | null = null;
+    const duration = 2000; // 2 seconds total
+    
+    const animate = (timestamp: number) => {
+      if (!startTime) startTime = timestamp;
+      const elapsed = timestamp - startTime;
       
-      const rect = titleRef.current.getBoundingClientRect();
-      const windowHeight = window.innerHeight;
+      // Ease-out cubic for fast start, slow end
+      const progress = Math.min(elapsed / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
       
-      // Start animation when element enters viewport
-      const startPoint = windowHeight * 0.8;
-      const endPoint = windowHeight * 0.3;
+      setHighlightProgress(eased);
       
-      if (rect.top <= startPoint && rect.top >= endPoint) {
-        const progress = (startPoint - rect.top) / (startPoint - endPoint);
-        setHighlightProgress(Math.min(Math.max(progress, 0), 1));
-      } else if (rect.top < endPoint) {
-        setHighlightProgress(1);
-      } else {
-        setHighlightProgress(0);
+      if (progress < 1) {
+        requestAnimationFrame(animate);
       }
     };
-
-    window.addEventListener('scroll', handleScroll);
-    handleScroll(); // Initial check
-    return () => window.removeEventListener('scroll', handleScroll);
+    
+    // Start animation after a brief delay
+    const timeout = setTimeout(() => {
+      requestAnimationFrame(animate);
+    }, 500);
+    
+    return () => clearTimeout(timeout);
   }, []);
 
   return (
     <section className="py-16 md:py-24 bg-cream">
       <div className="max-w-7xl mx-auto px-6 md:px-10 lg:px-20">
-        <h2 ref={titleRef} className="font-display text-4xl md:text-5xl lg:text-6xl text-center mb-16">
+        <h2 className="font-display text-4xl md:text-5xl lg:text-6xl text-center mb-16">
           If you're{" "}
           <span className="relative inline-block">
             <span 
-              className="absolute inset-0 bg-highlight -skew-x-2 origin-left transition-transform duration-100"
-              style={{ transform: `scaleX(${highlightProgress}) skewX(-2deg)` }}
+              className="absolute inset-0 bg-highlight -skew-x-2 origin-left"
+              style={{ 
+                transform: `scaleX(${highlightProgress}) skewX(-2deg)`,
+                transition: 'none'
+              }}
             />
             <span className="relative">exhausted</span>
           </span>
           , you're doing it{" "}
           <span className="relative inline-block">
             <span 
-              className="absolute inset-0 bg-highlight -skew-x-2 origin-left transition-transform duration-100"
-              style={{ transform: `scaleX(${highlightProgress}) skewX(-2deg)` }}
+              className="absolute inset-0 bg-highlight -skew-x-2 origin-left"
+              style={{ 
+                transform: `scaleX(${highlightProgress}) skewX(-2deg)`,
+                transition: 'none'
+              }}
             />
             <span className="relative">wrong</span>
           </span>
@@ -94,7 +101,7 @@ const ContentShowcase = () => {
             >
               {/* Text Content */}
               <div className="flex-1 space-y-4">
-                <h3 className="font-display text-2xl md:text-3xl lg:text-4xl">
+                <h3 className="font-body text-2xl md:text-3xl lg:text-4xl font-bold underline decoration-2 underline-offset-4 normal-case tracking-normal">
                   {card.title}
                 </h3>
                 <p className="text-lg text-foreground/70 max-w-lg">
@@ -102,7 +109,7 @@ const ContentShowcase = () => {
                 </p>
               </div>
 
-              {/* Image Card with Hover */}
+              {/* Image Card with Hover - 4:3 aspect ratio for entire card */}
               <div className="flex-1 flex justify-center">
                 <a 
                   href={card.ctaUrl} 
@@ -110,15 +117,17 @@ const ContentShowcase = () => {
                   rel="noopener noreferrer"
                   className="group relative w-full max-w-md overflow-hidden rounded-lg border-2 border-border bg-card shadow-lg hover:shadow-xl transition-all duration-300"
                 >
-                  <div className="p-4 border-b border-border bg-card">
-                    <h4 className="font-semibold text-lg">{card.hoverTitle}</h4>
-                  </div>
-                  <div className="aspect-[4/3] overflow-hidden">
-                    <img
-                      src={card.image}
-                      alt={card.hoverTitle}
-                      className="w-full h-full object-cover object-center"
-                    />
+                  <div className="aspect-[4/3] flex flex-col">
+                    <div className="p-4 border-b border-border bg-card shrink-0">
+                      <h4 className="font-semibold text-lg">{card.hoverTitle}</h4>
+                    </div>
+                    <div className="flex-1 overflow-hidden">
+                      <img
+                        src={card.image}
+                        alt={card.hoverTitle}
+                        className="w-full h-full object-cover object-center"
+                      />
+                    </div>
                   </div>
                   {/* Hover overlay with Free Trial button */}
                   <div className="absolute inset-0 bg-primary/80 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">

@@ -40,6 +40,7 @@ const benefits = [
 const ReasonsSection = () => {
   const [scrollProgress, setScrollProgress] = useState(0);
   const sectionRef = useRef<HTMLDivElement>(null);
+  const [isHovered, setIsHovered] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -63,16 +64,21 @@ const ReasonsSection = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Calculate icon positions based on scroll
+  // Calculate icon positions based on scroll - converge completely to center
   const getIconStyle = (index: number) => {
     const centerIndex = 3; // Mulerun is in the center
     const distance = index - centerIndex;
-    const convergeFactor = Math.min(scrollProgress * 2, 1);
+    const convergeFactor = Math.min(scrollProgress * 2.5, 1);
     
-    // Icons converge toward center
+    // Icons converge toward center and disappear except center
     const translateX = distance * 80 * (1 - convergeFactor);
-    const scale = 1 + (convergeFactor * (index === centerIndex ? 0.3 : -0.2));
-    const opacity = index === centerIndex ? 1 : (1 - convergeFactor * 0.8);
+    const isCenter = index === centerIndex;
+    
+    // Center icon grows, others shrink and fade
+    const scale = isCenter 
+      ? 1 + (convergeFactor * 0.5) 
+      : Math.max(0, 1 - convergeFactor * 1.5);
+    const opacity = isCenter ? 1 : Math.max(0, 1 - convergeFactor * 1.5);
     
     return {
       transform: `translateX(${translateX}px) scale(${scale})`,
@@ -93,8 +99,8 @@ const ReasonsSection = () => {
             <span className="bg-highlight px-3 py-1 inline-block">Multiple pro tools, a fraction of the price.</span>
           </p>
 
-          {/* Using Mulerun subtitle */}
-          <h3 className="text-xl md:text-2xl text-center mb-6 tracking-wide">
+          {/* Using Mulerun subtitle - italic style */}
+          <h3 className="text-xl md:text-2xl text-center mb-6 tracking-wide italic font-body normal-case">
             Using Mulerun is like having
           </h3>
 
@@ -115,40 +121,58 @@ const ReasonsSection = () => {
             ))}
           </div>
 
-          {/* Price Comparison */}
-          <h3 className="text-xl md:text-2xl text-center mb-6 tracking-wide font-normal">
-            Multiple pro platforms — <span className="font-bold bg-highlight px-2">Mulerun</span> handles it all.
+          {/* Price Comparison - italic style for subtitle */}
+          <h3 className="text-xl md:text-2xl text-center mb-6 tracking-wide font-body normal-case italic">
+            Multiple pro platforms — <span className="font-bold not-italic bg-highlight px-2">Mulerun</span> handles it all.
           </h3>
           
           <div className="grid md:grid-cols-2 gap-4 mb-12">
-            <div className="bg-background border-l-4 border-l-muted-foreground/50 border border-border p-6 rounded-lg">
+            <div className="bg-background border-l-4 border-l-muted-foreground/50 border border-border p-6 rounded-lg text-center">
               <p className="text-sm font-medium text-foreground/70 mb-3">Buy 4 pro platforms separately</p>
               <p className="text-2xl md:text-3xl font-bold text-foreground/60">$99<span className="text-base font-normal">/month</span></p>
             </div>
-            <div className="bg-highlight/30 border-l-4 border-l-highlight border border-border p-6 rounded-lg">
+            <div 
+              className="bg-highlight/30 border-l-4 border-l-highlight border border-border p-6 rounded-lg relative group cursor-pointer transition-all duration-300 hover:shadow-lg"
+              onMouseEnter={() => setIsHovered(true)}
+              onMouseLeave={() => setIsHovered(false)}
+            >
               <p className="text-sm font-medium text-foreground/70 mb-3">Get the same with Mulerun</p>
-              <div className="flex items-baseline gap-3 flex-wrap">
-                <p className="text-2xl md:text-3xl font-bold text-foreground">$15.9<span className="text-base font-normal">/month</span></p>
+              <div className="flex items-baseline gap-3 flex-wrap justify-center">
+                <p className="text-2xl md:text-3xl font-bold text-foreground">$19.9<span className="text-base font-normal">/month</span></p>
                 <span className="bg-orange-200 px-2 py-0.5 rounded text-sm font-medium">Save 75%</span>
               </div>
-              <p className="text-xs text-foreground/50 mt-1">Annual plan (20% off)</p>
+              <p className="text-xs text-foreground/50 mt-1 text-center">cancel anytime [PRICE in USD]</p>
+              
+              {/* Hover overlay with pricing button */}
+              <div className={`absolute inset-0 bg-primary/90 rounded-lg flex items-center justify-center transition-opacity duration-300 ${isHovered ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
+                <Button 
+                  variant="secondary" 
+                  size="lg" 
+                  className="font-mono text-base"
+                  asChild
+                >
+                  <a href="https://mulerun.com/pricing" target="_blank" rel="noopener noreferrer">
+                    View Pricing Plans <ArrowRight className="ml-2 w-4 h-4" />
+                  </a>
+                </Button>
+              </div>
             </div>
           </div>
 
-          {/* Benefits */}
-          <h3 className="text-xl md:text-2xl text-center mb-6">
-            Beyond Price — <span className="font-semibold">More Convenience with Mulerun</span>
+          {/* Benefits - italic style for subtitle */}
+          <h3 className="text-xl md:text-2xl text-center mb-6 font-body normal-case italic">
+            Beyond Price — <span className="font-semibold not-italic">More Convenience with Mulerun</span>
           </h3>
           
           <div className="grid md:grid-cols-3 gap-4 mb-10">
             {benefits.map((benefit, index) => (
               <div
                 key={index}
-                className="bg-highlight/20 border-l-4 border-l-highlight border border-border p-4 rounded-lg text-center"
+                className="bg-highlight/20 border-l-4 border-l-highlight border border-border p-5 rounded-lg text-center"
               >
-                <benefit.icon className="w-8 h-8 mx-auto mb-3 text-foreground/70" />
-                <p className="font-semibold text-sm mb-2">{benefit.title}</p>
-                <p className="text-xs text-foreground/60 text-justify">{benefit.description}</p>
+                <benefit.icon className="w-10 h-10 mx-auto mb-4 text-foreground/70" />
+                <p className="font-semibold text-base mb-3">{benefit.title}</p>
+                <p className="text-sm text-foreground/60 text-justify leading-relaxed">{benefit.description}</p>
               </div>
             ))}
           </div>
