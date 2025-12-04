@@ -42,9 +42,9 @@ const ContentShowcase = () => {
       const rect = titleRef.current.getBoundingClientRect();
       const windowHeight = window.innerHeight;
       
-      // Start animation when element enters viewport - from 0 to full
-      const startPoint = windowHeight;
-      const endPoint = windowHeight * 0.5;
+      // Start animation when element enters viewport
+      const startPoint = windowHeight * 0.8;
+      const endPoint = windowHeight * 0.3;
       
       if (rect.top <= startPoint && rect.top >= endPoint) {
         const progress = (startPoint - rect.top) / (startPoint - endPoint);
@@ -94,7 +94,7 @@ const ContentShowcase = () => {
             >
               {/* Text Content */}
               <div className="flex-1 space-y-4">
-                <h3 className="font-display text-2xl md:text-3xl lg:text-4xl font-bold normal-case tracking-normal">
+                <h3 className="font-display text-2xl md:text-3xl lg:text-4xl">
                   {card.title}
                 </h3>
                 <p className="text-lg text-foreground/70 max-w-lg">
