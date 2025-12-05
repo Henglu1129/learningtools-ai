@@ -123,33 +123,15 @@ const Footer = () => {
                   onMouseEnter={() => setHoveredCell(index)}
                   onMouseLeave={() => setHoveredCell(null)}
                 >
-                  {/* Cell background - darkens on hover */}
+                  {/* Color filter overlay on hover - black becomes magenta, white becomes turquoise */}
                   <div 
-                    className="absolute inset-0 transition-all duration-300"
+                    className="absolute inset-0 transition-all duration-300 mix-blend-screen"
                     style={{ 
-                      backgroundColor: hoveredCell === index ? 'rgba(0, 0, 0, 0.3)' : 'transparent'
+                      backgroundColor: hoveredCell === index ? '#FF1493' : 'transparent'
                     }}
                   />
                   
-                  {/* Brand color overlay - pink and green triangles on hover */}
-                  {hoveredCell === index && (
-                    <div className="absolute top-0 left-0 w-8 h-8 md:w-12 md:h-12 z-20">
-                      <div 
-                        className="absolute w-full h-full"
-                        style={{
-                          background: 'linear-gradient(135deg, #FF69B4 50%, transparent 50%)',
-                        }}
-                      />
-                      <div 
-                        className="absolute w-full h-full"
-                        style={{
-                          background: 'linear-gradient(-45deg, #2E8B57 50%, transparent 50%)',
-                        }}
-                      />
-                    </div>
-                  )}
-                  
-                  {/* Green text layer - visible on hover */}
+                  {/* Text layer with color filter effect */}
                   <div className="absolute inset-0 overflow-hidden">
                     <div
                       className="text-5xl md:text-7xl lg:text-[110px] select-none whitespace-nowrap transition-all duration-300"
@@ -157,7 +139,7 @@ const Footer = () => {
                         fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
                         fontWeight: 700,
                         lineHeight: 1,
-                        color: hoveredCell === index ? '#00ff88' : 'transparent',
+                        color: hoveredCell === index ? '#40E0D0' : 'transparent',
                         WebkitTextStroke: hoveredCell === index ? 'none' : '1px rgba(255, 255, 255, 0.1)',
                         transform: `translate(-${colPercent}%, -${rowPercent}%)`,
                         width: '900%',

@@ -112,38 +112,38 @@ const ReasonsSection = () => {
             {leftIcons.map((platform, index) => (
               <div
                 key={`left-${index}`}
-                className="w-10 h-10 md:w-14 md:h-14 rounded-xl border-2 border-border bg-background flex items-center justify-center overflow-hidden"
+                className="w-10 h-10 md:w-14 md:h-14 rounded-lg border-2 border-border bg-background flex items-center justify-center overflow-hidden"
                 style={getSideIconStyle(leftIcons.length - 1 - index, 'left')}
               >
                 <img 
                   src={platform.icon} 
                   alt={platform.name}
-                  className="w-8 h-8 md:w-11 md:h-11 object-contain"
+                  className="w-6 h-6 md:w-8 md:h-8 object-cover rounded"
                 />
               </div>
             ))}
             
             <div
-              className="w-12 h-12 md:w-16 md:h-16 rounded-xl border-2 border-highlight bg-background flex items-center justify-center overflow-hidden z-10"
+              className="w-12 h-12 md:w-16 md:h-16 rounded-lg border-2 border-highlight bg-background flex items-center justify-center overflow-hidden z-10"
               style={getCenterIconStyle()}
             >
               <img 
                 src={iconMulerun} 
                 alt="Mulerun"
-                className="w-10 h-10 md:w-14 md:h-14 object-contain"
+                className="w-8 h-8 md:w-10 md:h-10 object-cover rounded"
               />
             </div>
             
             {rightIcons.map((platform, index) => (
               <div
                 key={`right-${index}`}
-                className="w-10 h-10 md:w-14 md:h-14 rounded-xl border-2 border-border bg-background flex items-center justify-center overflow-hidden"
+                className="w-10 h-10 md:w-14 md:h-14 rounded-lg border-2 border-border bg-background flex items-center justify-center overflow-hidden"
                 style={getSideIconStyle(index, 'right')}
               >
                 <img 
                   src={platform.icon} 
                   alt={platform.name}
-                  className="w-8 h-8 md:w-11 md:h-11 object-contain"
+                  className="w-6 h-6 md:w-8 md:h-8 object-cover rounded"
                 />
               </div>
             ))}
@@ -170,8 +170,8 @@ const ReasonsSection = () => {
               </div>
               <p className="text-sm font-medium text-foreground/70 mb-1">Get the same with Mulerun</p>
               <div className="flex items-baseline gap-2">
-                <span className="text-foreground/40 line-through text-base">$10</span>
-                <span className="text-xl md:text-2xl font-bold text-foreground">$8.33</span>
+                <span className="text-foreground/40 line-through text-base">$19.9</span>
+                <span className="text-xl md:text-2xl font-bold text-foreground">$15.9</span>
                 <span className="text-sm font-normal text-foreground/70">/month</span>
               </div>
               <p className="text-xs text-foreground/50 mt-1">Billed annually, get 2 months free</p>

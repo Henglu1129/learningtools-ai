@@ -75,13 +75,13 @@ const FeaturesSection = () => {
         </h2>
 
         {/* Feature Cards */}
-        <div className="space-y-12 md:space-y-16">
+        <div className="space-y-8 md:space-y-10">
           {features.map((feature, index) => (
             <div
               key={index}
               className={`flex flex-col ${
                 feature.imagePosition === "left" ? "md:flex-row-reverse" : "md:flex-row"
-              } items-center gap-6 md:gap-12`}
+              } items-center gap-4 md:gap-8`}
             >
               {/* Text Content */}
               <div className={`flex-1 space-y-2 ${feature.imagePosition === "left" ? "md:text-right md:items-end" : "md:text-left md:items-start"} flex flex-col text-center ${feature.imagePosition === "left" ? "md:items-end" : "md:items-start"}`}>
@@ -106,7 +106,7 @@ const FeaturesSection = () => {
 
               {/* Image */}
               <div className="flex-1 w-full">
-                <div className="relative aspect-[4/3] overflow-hidden rounded-lg shadow-lg">
+                <div className="relative aspect-[16/9] overflow-hidden rounded-lg shadow-lg">
                   <img
                     src={feature.image}
                     alt={feature.title}
