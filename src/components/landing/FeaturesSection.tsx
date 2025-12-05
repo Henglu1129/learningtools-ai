@@ -7,86 +7,97 @@ import featureSmartq from "@/assets/feature-smartq.png";
 import agentPaperNew from "@/assets/agent-paper-new.png";
 import agentYoutubeNew from "@/assets/agent-youtube-new.png";
 import agentExplainNew from "@/assets/agent-explain-new.png";
+import { trackClick, ANALYTICS_EVENTS } from "@/lib/analytics";
 
 const features = [
   {
-    category: "General Browser Operator",
     title: "Discover",
-    description: "Just tell it what you want. It handles the web for you.",
+    description: "Handle your browser and complete any web-based tasks.",
     image: featureBrowser,
     link: "https://mulerun.com/agents/ca8f87b0-cc33-4e18-973d-04031871e731/",
     imagePosition: "right",
+    eventName: ANALYTICS_EVENTS.FEATURE_BROWSER,
   },
   {
-    category: "Knowledge Card Agent",
     title: "Understand",
-    description: "Paste. Generate. Own.",
+    description: "Summarize any article you have into a beautifully‑designed knowledge card.",
     image: featureKnowledge,
     link: "https://mulerun.com/agents/05ad0e6e-96da-4eb4-b195-5aa75fd172d8/",
     imagePosition: "left",
+    eventName: ANALYTICS_EVENTS.FEATURE_KNOWLEDGE,
   },
   {
-    category: "Mindmap generator",
     title: "Organize",
-    description: "Turn ideas into clear mind maps.",
+    description: "Effortlessly create and export mind maps in FreeMind format.",
     image: featureMindmap,
     link: "https://mulerun.com/agents/3079e928-f57b-462a-94f8-a041b78534dd/",
     imagePosition: "right",
+    eventName: ANALYTICS_EVENTS.FEATURE_MINDMAP,
   },
   {
-    category: "Smart Q",
     title: "Question",
-    description: "For anyone who lost in charts.",
+    description: "AI-powered data analysis via natural language—no coding needed.",
     image: featureSmartq,
     link: "https://mulerun.com/agents/779e2356-11e7-4fe0-90a3-4a1e9506c3b0/",
     imagePosition: "left",
+    eventName: ANALYTICS_EVENTS.FEATURE_SMARTQ,
   },
 ];
 
 const miniAgents = [
   {
-    name: "Paper Review Agent",
+    name: "Generate topic overviews",
     image: agentPaperNew,
     link: "https://mulerun.com/agents/3dce446b-c3fc-44c0-8595-6ed9b247c095/",
+    eventName: ANALYTICS_EVENTS.AGENT_PAPER,
   },
   {
-    name: "YouTube Quick Scan",
+    name: "Quick video summaries",
     image: agentYoutubeNew,
     link: "https://mulerun.com/agents/15ff0a66-65e2-4669-a400-81ce8763a2c4/",
+    eventName: ANALYTICS_EVENTS.AGENT_YOUTUBE,
   },
   {
-    name: "Explain it like I am 5",
+    name: "Simplify complex pics",
     image: agentExplainNew,
     link: "https://mulerun.com/agents/8a6ccf9e-95dd-46a2-98d4-560302fd99e2/",
+    eventName: ANALYTICS_EVENTS.AGENT_EXPLAIN,
   },
 ];
 
 const FeaturesSection = () => {
   return (
-    <section className="py-16 md:py-24 bg-background" style={{ backgroundColor: 'hsl(0, 0%, 97%)' }}>
-      <div className="max-w-7xl mx-auto px-6 md:px-10 lg:px-20">
+    <section className="py-12 md:py-20 bg-background" style={{ backgroundColor: 'hsl(0, 0%, 97%)' }}>
+      <div className="max-w-7xl mx-auto px-4 md:px-10 lg:px-20">
+        {/* Section Title */}
+        <h2 className="text-3xl md:text-4xl lg:text-5xl text-center mb-12 md:mb-16 tracking-wider">
+          Your Complete Learning Flow
+        </h2>
+
         {/* Feature Cards */}
-        <div className="space-y-24 md:space-y-32">
+        <div className="space-y-12 md:space-y-16">
           {features.map((feature, index) => (
             <div
               key={index}
               className={`flex flex-col ${
                 feature.imagePosition === "left" ? "md:flex-row-reverse" : "md:flex-row"
-              } items-center gap-8 md:gap-16`}
+              } items-center gap-6 md:gap-12`}
             >
               {/* Text Content */}
-              <div className={`flex-1 space-y-1 ${feature.imagePosition === "left" ? "md:text-left" : "md:text-right"}`}>
-                <h3 className="text-3xl md:text-4xl lg:text-5xl">
+              <div className={`flex-1 space-y-2 ${feature.imagePosition === "left" ? "md:text-right md:items-end" : "md:text-left md:items-start"} flex flex-col text-center ${feature.imagePosition === "left" ? "md:items-end" : "md:items-start"}`}>
+                <h3 className="text-2xl md:text-3xl lg:text-4xl">
                   {feature.title}
                 </h3>
-                <span className="font-mono text-lg md:text-xl text-foreground/60 uppercase tracking-wider block">
-                  {feature.category}
-                </span>
-                <p className="text-base text-foreground/70 max-w-md pb-3">
+                <p className="text-sm md:text-base text-foreground/70 max-w-sm">
                   {feature.description}
                 </p>
-                <a href={feature.link} target="_blank" rel="noopener noreferrer" className={`inline-block ${feature.imagePosition === "left" ? "" : "md:ml-auto"}`}>
-                  <Button className="bg-foreground text-background hover:bg-foreground/90 px-6 py-3 text-sm font-medium">
+                <a 
+                  href={feature.link} 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  onClick={() => trackClick(feature.eventName)}
+                >
+                  <Button className="bg-foreground text-background hover:bg-foreground/90 px-5 py-2 text-sm font-medium mt-2">
                     Try it for free
                     <ArrowRight className="ml-2 h-4 w-4" />
                   </Button>
@@ -94,7 +105,7 @@ const FeaturesSection = () => {
               </div>
 
               {/* Image */}
-              <div className="flex-1">
+              <div className="flex-1 w-full">
                 <div className="relative aspect-[4/3] overflow-hidden rounded-lg shadow-lg">
                   <img
                     src={feature.image}
@@ -108,12 +119,12 @@ const FeaturesSection = () => {
         </div>
 
         {/* Mini Agent Cards */}
-        <div className="mt-24 md:mt-32">
-          <div className="flex flex-col md:flex-row justify-center items-center gap-8">
+        <div className="mt-16 md:mt-20">
+          <div className="flex flex-col md:flex-row justify-center items-center gap-6">
             {miniAgents.map((agent, index) => (
               <div
                 key={index}
-                className="bg-card border-2 border-border rounded-lg overflow-hidden w-full md:w-80 hover:shadow-lg transition-shadow"
+                className="bg-card border-2 border-border rounded-lg overflow-hidden w-full md:w-72 hover:shadow-lg transition-shadow"
               >
                 <div className="aspect-[4/3] overflow-hidden">
                   <img
@@ -122,13 +133,19 @@ const FeaturesSection = () => {
                     className="w-full h-full object-cover object-center"
                   />
                 </div>
-                <div className="p-4 text-center">
-                  <h4 className="text-lg font-semibold mb-3 normal-case tracking-normal font-body">
+                <div className="p-3 text-center">
+                  <h4 className="text-base font-semibold mb-2 normal-case tracking-normal font-body">
                     {agent.name}
                   </h4>
-                  <a href={agent.link} target="_blank" rel="noopener noreferrer">
+                  <a 
+                    href={agent.link} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    onClick={() => trackClick(agent.eventName)}
+                  >
                     <Button
                       variant="outline"
+                      size="sm"
                       className="border-2 border-foreground hover:bg-foreground hover:text-background transition-colors"
                     >
                       Free Trial
