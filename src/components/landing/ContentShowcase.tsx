@@ -1,8 +1,8 @@
 // ContentShowcase component - displays problem cards with solutions
-import { useEffect, useState } from "react";
-import showcasePaper from "@/assets/showcase-paper.gif";
-import showcaseYoutube from "@/assets/showcase-youtube.gif";
-import showcaseExplain from "@/assets/showcase-explain.gif";
+import { Button } from "@/components/ui/button";
+import showcasePaper from "@/assets/showcase-paper-new.gif";
+import showcaseExplain from "@/assets/showcase-explain-new.gif";
+import showcaseYoutube from "@/assets/showcase-youtube-new.gif";
 import { trackClick, ANALYTICS_EVENTS } from "@/lib/analytics";
 
 const contentCards = [
@@ -16,49 +16,23 @@ const contentCards = [
   },
   {
     id: 2,
-    title: "Drowning in Jargon — Not Learning?",
-    description: "You highlighted half the textbook. Rewound the lecture twice. But when asked to explain it? Your mind went blank. You're not learning — you're just rehearsing confusion.",
-    image: showcaseYoutube,
-    ctaUrl: "https://mulerun.com/agents/15ff0a66-65e2-4669-a400-81ce8763a2c4/shared-sessions/dae4dff8-46e5-4a91-b345-481c472f0213",
-    eventName: ANALYTICS_EVENTS.SHOWCASE_YOUTUBE,
+    title: "Confused by Complex Images and Diagrams?",
+    description: "That flowchart, infographic, or technical diagram looks like gibberish. You stare at it for 20 minutes but still can't figure out what it means. Let AI break it down for you like you're five.",
+    image: showcaseExplain,
+    ctaUrl: "https://mulerun.com/agents/8a6ccf9e-95dd-46a2-98d4-560302fd99e2/shared-sessions/84b2c823-2703-4b70-a217-5f63f913a5d3",
+    eventName: ANALYTICS_EVENTS.SHOWCASE_EXPLAIN,
   },
   {
     id: 3,
     title: "Saving 10,000 Youtube Videos — Learning Zero?",
     description: "You've subscribed to every smart channel. But your watch history? Still empty. You're not preparing to learn — you're just curating your own delusion.",
-    image: showcaseExplain,
-    ctaUrl: "https://mulerun.com/agents/8a6ccf9e-95dd-46a2-98d4-560302fd99e2/shared-sessions/84b2c823-2703-4b70-a217-5f63f913a5d3",
-    eventName: ANALYTICS_EVENTS.SHOWCASE_EXPLAIN,
+    image: showcaseYoutube,
+    ctaUrl: "https://mulerun.com/agents/15ff0a66-65e2-4669-a400-81ce8763a2c4/shared-sessions/1b92191b-8d85-4a1e-a931-a49aa7f7dd11",
+    eventName: ANALYTICS_EVENTS.SHOWCASE_YOUTUBE,
   },
 ];
 
 const ContentShowcase = () => {
-  const [highlightProgress, setHighlightProgress] = useState(0);
-
-  useEffect(() => {
-    let startTime: number | null = null;
-    const duration = 2000;
-    
-    const animate = (timestamp: number) => {
-      if (!startTime) startTime = timestamp;
-      const elapsed = timestamp - startTime;
-      const progress = Math.min(elapsed / duration, 1);
-      const eased = 1 - Math.pow(1 - progress, 3);
-      
-      setHighlightProgress(eased);
-      
-      if (progress < 1) {
-        requestAnimationFrame(animate);
-      }
-    };
-    
-    const timeout = setTimeout(() => {
-      requestAnimationFrame(animate);
-    }, 500);
-    
-    return () => clearTimeout(timeout);
-  }, []);
-
   return (
     <section className="py-12 md:py-20 bg-cream">
       <div className="max-w-7xl mx-auto px-4 md:px-10 lg:px-20">
@@ -75,13 +49,22 @@ const ContentShowcase = () => {
               } items-center`}
             >
               {/* Text Content */}
-              <div className="flex-1 space-y-3">
+              <div className="flex-1 space-y-4">
                 <h3 className="font-body text-xl md:text-2xl lg:text-3xl font-bold normal-case tracking-normal">
                   {card.title}
                 </h3>
                 <p className="text-base text-foreground/70 max-w-lg">
                   {card.description}
                 </p>
+                <Button
+                  asChild
+                  className="bg-foreground text-background hover:bg-foreground/90"
+                  onClick={() => trackClick(card.eventName)}
+                >
+                  <a href={card.ctaUrl} target="_blank" rel="noopener noreferrer">
+                    Click here to solve it
+                  </a>
+                </Button>
               </div>
 
               {/* Image Card - 16:9 aspect ratio */}
@@ -93,17 +76,12 @@ const ContentShowcase = () => {
                   className="block w-full max-w-md overflow-hidden rounded-lg border-2 border-border bg-card shadow-md hover:shadow-lg transition-shadow"
                   onClick={() => trackClick(card.eventName)}
                 >
-                  <div className="aspect-video relative">
+                  <div className="aspect-video">
                     <img
                       src={card.image}
                       alt={card.title}
                       className="w-full h-full object-cover object-center"
                     />
-                    <div className="absolute inset-0 flex items-center justify-center bg-black/20 hover:bg-black/30 transition-colors">
-                      <span className="text-white font-bold text-sm md:text-base tracking-wide bg-black/50 px-4 py-2 rounded">
-                        Click here to solve it
-                      </span>
-                    </div>
                   </div>
                 </a>
               </div>
