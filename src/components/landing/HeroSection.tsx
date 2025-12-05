@@ -3,6 +3,7 @@ import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
 import { useState, useEffect, useCallback } from "react";
 import carousel1 from "@/assets/carousel-1.gif";
 import carousel2 from "@/assets/carousel-2.gif";
+import { trackClick, ANALYTICS_EVENTS } from "@/lib/analytics";
 
 const carouselImages = [carousel1, carousel2];
 
@@ -29,29 +30,32 @@ const HeroSection = () => {
   }, [isPaused, nextSlide]);
 
   return (
-    <section className="px-6 md:px-10 lg:px-20 py-16 md:py-24 bg-background">
-      <div className="max-w-7xl mx-auto flex flex-col lg:flex-row gap-12 lg:gap-16 items-center">
-        <div className="flex-1 max-w-2xl">
+    <section className="px-4 md:px-10 lg:px-20 py-12 md:py-20 bg-background">
+      <div className="max-w-7xl mx-auto flex flex-col lg:flex-row gap-8 lg:gap-16 items-center">
+        <div className="flex-1 max-w-2xl text-center lg:text-left">
           <h1 className="mb-6">
-            <span className="text-5xl md:text-6xl lg:text-7xl leading-[1.1] block tracking-widest">
-              Your AI study partners
+            <span className="text-4xl md:text-5xl lg:text-6xl leading-[1.1] block tracking-[0.1em]">
+              Stop Studying Hard.
             </span>
-            <span className="text-3xl md:text-4xl lg:text-5xl leading-[1.2] block mt-2 text-foreground/80">
-              ready for any learning task
+            <span className="text-4xl md:text-5xl lg:text-6xl leading-[1.1] block tracking-[0.1em] mt-2">
+              Start Learning Smart.
             </span>
           </h1>
-          <p className="text-lg md:text-xl text-foreground/70 mb-8 leading-relaxed max-w-xl">
-            Our AI agents read, explain, map, and quiz—so you learn faster and smarter!
+          <p className="text-base md:text-lg text-foreground/70 mb-8 leading-relaxed max-w-xl mx-auto lg:mx-0">
+            AI agents that read, explain, organize, and quiz for you—so you can finally learn without burnout.
           </p>
           <Button variant="hero" size="lg" className="font-mono text-base gap-2" asChild>
-            <a href="https://mulerun.com/agent-store">
+            <a 
+              href="https://mulerun.com/agent-store"
+              onClick={() => trackClick(ANALYTICS_EVENTS.HERO_START_FREE)}
+            >
               START FREE <ArrowRight className="w-4 h-4" />
             </a>
           </Button>
         </div>
 
         <div 
-          className="relative w-full max-w-md lg:max-w-lg"
+          className="relative w-full max-w-sm md:max-w-md lg:max-w-lg"
           onMouseEnter={() => setIsPaused(true)}
           onMouseLeave={() => setIsPaused(false)}
         >
