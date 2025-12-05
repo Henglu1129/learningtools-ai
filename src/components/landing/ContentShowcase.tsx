@@ -1,3 +1,4 @@
+// ContentShowcase component - displays problem cards with solutions
 import { useEffect, useState } from "react";
 import showcasePaper from "@/assets/showcase-paper.gif";
 import showcaseYoutube from "@/assets/showcase-youtube.gif";
