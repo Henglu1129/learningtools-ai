@@ -100,9 +100,9 @@ const ReasonsSection = () => {
   };
 
   return (
-    <section ref={sectionRef} className="py-12 md:py-20" style={{ backgroundColor: '#E3F1FC' }}>
+    <section ref={sectionRef} className="py-12 md:py-20 bg-background">
       <div className="max-w-7xl mx-auto px-4 md:px-10 lg:px-20">
-        <div className="rounded-2xl p-6 md:p-10 shadow-lg" style={{ backgroundColor: '#EEF2F6', border: '2px solid #5EB2F3' }}>
+        <div className="bg-cream border-2 border-border rounded-2xl p-6 md:p-10 shadow-lg">
           {/* Title */}
           <h2 className="text-2xl md:text-4xl lg:text-5xl text-center mb-8">
             One account, all the tools you need
@@ -162,8 +162,7 @@ const ReasonsSection = () => {
               <p className="text-xl md:text-2xl font-bold text-foreground/60">$99<span className="text-sm font-normal">/month</span></p>
             </div>
             <div 
-              className="border-l-4 p-5 rounded-lg relative group cursor-pointer transition-all duration-300 hover:shadow-lg flex flex-col justify-center items-start flex-1"
-              style={{ backgroundColor: '#D6ECFC', borderLeftColor: '#5EB2F3', borderColor: '#5EB2F3' }}
+              className="bg-highlight/30 border-l-4 border-l-highlight border border-border p-5 rounded-lg relative group cursor-pointer transition-all duration-300 hover:shadow-lg flex flex-col justify-center items-start flex-1"
               onMouseEnter={() => setIsHovered(true)}
               onMouseLeave={() => setIsHovered(false)}
             >
@@ -204,8 +203,7 @@ const ReasonsSection = () => {
             {benefits.map((benefit, index) => (
               <div
                 key={index}
-                className="border-l-4 border p-4 rounded-lg text-left"
-                style={{ backgroundColor: '#D6ECFC', borderLeftColor: '#5EB2F3', borderColor: '#5EB2F3' }}
+                className="bg-highlight/20 border-l-4 border-l-highlight border border-border p-4 rounded-lg text-left"
               >
                 <benefit.icon className="w-8 h-8 mb-3 text-foreground/70" />
                 <p className="font-semibold text-base mb-2">{benefit.title}</p>
