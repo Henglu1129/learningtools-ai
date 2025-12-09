@@ -2,23 +2,24 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
 import { useState, useEffect, useCallback } from "react";
-import carousel1 from "@/assets/carousel-1-new.gif";
-import carousel2 from "@/assets/carousel-2-new.gif";
-import carousel3 from "@/assets/carousel-3-new.gif";
 import { trackClick, ANALYTICS_EVENTS } from "@/lib/analytics";
 
-const carouselImages = [carousel1, carousel2, carousel3];
+const carouselVideos = [
+  "/videos/carousel-1.mp4",
+  "/videos/carousel-2.mp4",
+  "/videos/carousel-3.mp4"
+];
 
 const HeroSection = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
 
   const nextSlide = useCallback(() => {
-    setCurrentIndex((prev) => (prev + 1) % carouselImages.length);
+    setCurrentIndex((prev) => (prev + 1) % carouselVideos.length);
   }, []);
 
   const prevSlide = useCallback(() => {
-    setCurrentIndex((prev) => (prev - 1 + carouselImages.length) % carouselImages.length);
+    setCurrentIndex((prev) => (prev - 1 + carouselVideos.length) % carouselVideos.length);
   }, []);
 
   useEffect(() => {
@@ -26,7 +27,7 @@ const HeroSection = () => {
     
     const interval = setInterval(() => {
       nextSlide();
-    }, 5000);
+    }, 8000);
 
     return () => clearInterval(interval);
   }, [isPaused, nextSlide]);
@@ -73,11 +74,14 @@ const HeroSection = () => {
                 className="flex transition-transform duration-500 ease-in-out h-full"
                 style={{ transform: `translateX(-${currentIndex * 100}%)` }}
               >
-                {carouselImages.map((img, index) => (
-                  <img
+                {carouselVideos.map((video, index) => (
+                  <video
                     key={index}
-                    src={img}
-                    alt={`Carousel ${index + 1}`}
+                    src={video}
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
                     className="w-full h-full object-cover flex-shrink-0"
                   />
                 ))}
@@ -101,7 +105,7 @@ const HeroSection = () => {
               
               {/* Dots indicator */}
               <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-2">
-                {carouselImages.map((_, index) => (
+                {carouselVideos.map((_, index) => (
                   <button
                     key={index}
                     onClick={() => setCurrentIndex(index)}
