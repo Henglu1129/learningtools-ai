@@ -4,9 +4,10 @@ import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
 import { useState, useEffect, useCallback } from "react";
 import carousel1 from "@/assets/carousel-1-new.gif";
 import carousel2 from "@/assets/carousel-2-new.gif";
+import carousel3 from "@/assets/carousel-3-new.gif";
 import { trackClick, ANALYTICS_EVENTS } from "@/lib/analytics";
 
-const carouselImages = [carousel1, carousel2];
+const carouselImages = [carousel1, carousel2, carousel3];
 
 const HeroSection = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
