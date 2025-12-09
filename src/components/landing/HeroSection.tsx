@@ -25,6 +25,7 @@ const carouselItems = [
 const HeroSection = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
+  const [loadedVideos, setLoadedVideos] = useState<Set<number>>(new Set());
   const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
 
   const nextSlide = useCallback(() => {
@@ -45,11 +46,16 @@ const HeroSection = () => {
     return () => clearInterval(interval);
   }, [isPaused, nextSlide]);
 
-  // Control video playback based on current index
+  // Handle video loaded event
+  const handleVideoLoaded = (index: number) => {
+    setLoadedVideos((prev) => new Set(prev).add(index));
+  };
+
+  // Control video playback based on current index and load state
   useEffect(() => {
     videoRefs.current.forEach((video, index) => {
       if (video) {
-        if (index === currentIndex) {
+        if (index === currentIndex && loadedVideos.has(index)) {
           video.currentTime = 0;
           video.play().catch(() => {});
         } else {
@@ -57,7 +63,16 @@ const HeroSection = () => {
         }
       }
     });
-  }, [currentIndex]);
+  }, [currentIndex, loadedVideos]);
+
+  // Preload next video
+  useEffect(() => {
+    const nextIndex = (currentIndex + 1) % carouselItems.length;
+    const nextVideo = videoRefs.current[nextIndex];
+    if (nextVideo && !loadedVideos.has(nextIndex)) {
+      nextVideo.load();
+    }
+  }, [currentIndex, loadedVideos]);
 
   return (
     <section className="px-4 md:px-10 lg:px-20 py-12 md:py-20 bg-background">
@@ -107,7 +122,7 @@ const HeroSection = () => {
                     href={item.link}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-full h-full flex-shrink-0 cursor-pointer"
+                    className="w-full h-full flex-shrink-0 cursor-pointer relative"
                     onClick={() => trackClick(item.eventName)}
                   >
                     <video
@@ -116,8 +131,16 @@ const HeroSection = () => {
                       loop
                       muted
                       playsInline
+                      preload={index === 0 ? "auto" : "metadata"}
+                      onCanPlayThrough={() => handleVideoLoaded(index)}
                       className="w-full h-full object-cover"
                     />
+                    {/* Loading indicator - shows first frame as placeholder */}
+                    {!loadedVideos.has(index) && index === currentIndex && (
+                      <div className="absolute inset-0 flex items-center justify-center bg-background/20">
+                        <div className="w-8 h-8 border-2 border-primary border-t-transparent rounded-full animate-spin" />
+                      </div>
+                    )}
                   </a>
                 ))}
               </div>
