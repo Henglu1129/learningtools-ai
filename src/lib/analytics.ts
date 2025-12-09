@@ -28,6 +28,11 @@ export const ANALYTICS_EVENTS = {
   // Hero
   HERO_START_FREE: 'hero_click_start_free',
   
+  // Hero Carousel
+  CAROUSEL_SLIDE_1: 'carousel_click_slide_1',
+  CAROUSEL_SLIDE_2: 'carousel_click_slide_2',
+  CAROUSEL_SLIDE_3: 'carousel_click_slide_3',
+  
   // Content Showcase
   SHOWCASE_PAPER: 'showcase_click_paper',
   SHOWCASE_EXPLAIN: 'showcase_click_explain',
