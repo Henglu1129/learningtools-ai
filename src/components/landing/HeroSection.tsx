@@ -1,39 +1,24 @@
 // HeroSection - main landing page hero
 import { Button } from "@/components/ui/button";
 import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
-import { useState, useEffect, useCallback, useRef } from "react";
+import { useState, useEffect, useCallback } from "react";
+import carousel1 from "@/assets/carousel-1-new.gif";
+import carousel2 from "@/assets/carousel-2-new.gif";
+import carousel3 from "@/assets/carousel-3-new.gif";
 import { trackClick, ANALYTICS_EVENTS } from "@/lib/analytics";
 
-const carouselItems = [
-  {
-    video: "/videos/carousel-1.mp4",
-    link: "https://mulerun.com/@Ailurus/general-browser-operator",
-    eventName: ANALYTICS_EVENTS.HERO_CAROUSEL_1,
-  },
-  {
-    video: "/videos/carousel-2.mp4",
-    link: "https://mulerun.com/@QuickBI/smart-q",
-    eventName: ANALYTICS_EVENTS.HERO_CAROUSEL_2,
-  },
-  {
-    video: "/videos/carousel-3.mp4",
-    link: "https://mulerun.com/@createAny/knowledge-card-factory",
-    eventName: ANALYTICS_EVENTS.HERO_CAROUSEL_3,
-  },
-];
+const carouselImages = [carousel1, carousel2, carousel3];
 
 const HeroSection = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
-  const [loadedVideos, setLoadedVideos] = useState<Set<number>>(new Set());
-  const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
 
   const nextSlide = useCallback(() => {
-    setCurrentIndex((prev) => (prev + 1) % carouselItems.length);
+    setCurrentIndex((prev) => (prev + 1) % carouselImages.length);
   }, []);
 
   const prevSlide = useCallback(() => {
-    setCurrentIndex((prev) => (prev - 1 + carouselItems.length) % carouselItems.length);
+    setCurrentIndex((prev) => (prev - 1 + carouselImages.length) % carouselImages.length);
   }, []);
 
   useEffect(() => {
@@ -41,38 +26,10 @@ const HeroSection = () => {
     
     const interval = setInterval(() => {
       nextSlide();
-    }, 8000);
+    }, 5000);
 
     return () => clearInterval(interval);
   }, [isPaused, nextSlide]);
-
-  // Handle video loaded event
-  const handleVideoLoaded = (index: number) => {
-    setLoadedVideos((prev) => new Set(prev).add(index));
-  };
-
-  // Control video playback based on current index and load state
-  useEffect(() => {
-    videoRefs.current.forEach((video, index) => {
-      if (video) {
-        if (index === currentIndex && loadedVideos.has(index)) {
-          video.currentTime = 0;
-          video.play().catch(() => {});
-        } else {
-          video.pause();
-        }
-      }
-    });
-  }, [currentIndex, loadedVideos]);
-
-  // Preload next video
-  useEffect(() => {
-    const nextIndex = (currentIndex + 1) % carouselItems.length;
-    const nextVideo = videoRefs.current[nextIndex];
-    if (nextVideo && !loadedVideos.has(nextIndex)) {
-      nextVideo.load();
-    }
-  }, [currentIndex, loadedVideos]);
 
   return (
     <section className="px-4 md:px-10 lg:px-20 py-12 md:py-20 bg-background">
@@ -116,32 +73,13 @@ const HeroSection = () => {
                 className="flex transition-transform duration-500 ease-in-out h-full"
                 style={{ transform: `translateX(-${currentIndex * 100}%)` }}
               >
-                {carouselItems.map((item, index) => (
-                  <a
+                {carouselImages.map((img, index) => (
+                  <img
                     key={index}
-                    href={item.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="w-full h-full flex-shrink-0 cursor-pointer relative"
-                    onClick={() => trackClick(item.eventName)}
-                  >
-                    <video
-                      ref={(el) => (videoRefs.current[index] = el)}
-                      src={item.video}
-                      loop
-                      muted
-                      playsInline
-                      preload={index === 0 ? "auto" : "metadata"}
-                      onCanPlayThrough={() => handleVideoLoaded(index)}
-                      className="w-full h-full object-cover"
-                    />
-                    {/* Loading indicator - shows first frame as placeholder */}
-                    {!loadedVideos.has(index) && index === currentIndex && (
-                      <div className="absolute inset-0 flex items-center justify-center bg-background/20">
-                        <div className="w-8 h-8 border-2 border-primary border-t-transparent rounded-full animate-spin" />
-                      </div>
-                    )}
-                  </a>
+                    src={img}
+                    alt={`Carousel ${index + 1}`}
+                    className="w-full h-full object-cover flex-shrink-0"
+                  />
                 ))}
               </div>
               
@@ -163,7 +101,7 @@ const HeroSection = () => {
               
               {/* Dots indicator */}
               <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-2">
-                {carouselItems.map((_, index) => (
+                {carouselImages.map((_, index) => (
                   <button
                     key={index}
                     onClick={() => setCurrentIndex(index)}
