@@ -101,7 +101,7 @@ const ReasonsSection = () => {
   };
 
   return (
-    <section ref={sectionRef} className="py-12 md:py-20" style={{ backgroundColor: '#E8F4FC' }}>
+    <section ref={sectionRef} className="py-12 md:py-20 bg-background">
       <div className="max-w-7xl mx-auto px-4 md:px-10 lg:px-20">
         <div className="bg-white border-2 border-border rounded-2xl p-6 md:p-10 shadow-lg">
           {/* Title */}
