@@ -2,8 +2,8 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
 import { useState, useEffect, useCallback } from "react";
-import carousel1 from "@/assets/carousel-1.gif";
-import carousel2 from "@/assets/carousel-2.gif";
+import carousel1 from "@/assets/carousel-1-new.gif";
+import carousel2 from "@/assets/carousel-2-new.gif";
 import { trackClick, ANALYTICS_EVENTS } from "@/lib/analytics";
 
 const carouselImages = [carousel1, carousel2];
