@@ -1,8 +1,8 @@
 // ContentShowcase component - displays problem cards with solutions
 import { Button } from "@/components/ui/button";
-import showcasePaper from "@/assets/showcase-paper-new.gif";
-import showcaseExplain from "@/assets/showcase-explain-new.gif";
-import showcaseYoutube from "@/assets/showcase-youtube-new.gif";
+import showcasePaper from "@/assets/showcase-paper-v2.gif";
+import showcaseExplain from "@/assets/showcase-explain-v2.gif";
+import showcaseYoutube from "@/assets/showcase-youtube-v2.gif";
 import { trackClick, ANALYTICS_EVENTS } from "@/lib/analytics";
 
 const contentCards = [

@@ -4,9 +4,9 @@ import featureBrowser from "@/assets/feature-browser.png";
 import featureKnowledge from "@/assets/feature-knowledge.png";
 import featureMindmap from "@/assets/feature-mindmap.webp";
 import featureSmartq from "@/assets/feature-smartq.png";
-import agentPaperNew from "@/assets/agent-paper-new.gif";
-import agentYoutubeNew from "@/assets/agent-youtube-new.gif";
-import agentExplainNew from "@/assets/agent-explain-new.gif";
+import agentPaperNew from "@/assets/hero-carousel-1.gif";
+import agentYoutubeNew from "@/assets/hero-carousel-2.gif";
+import agentExplainNew from "@/assets/hero-carousel-3.gif";
 import { trackClick, ANALYTICS_EVENTS } from "@/lib/analytics";
 
 const features = [

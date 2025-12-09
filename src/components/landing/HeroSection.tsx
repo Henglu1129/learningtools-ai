@@ -2,9 +2,9 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
 import { useState, useEffect, useCallback, useRef } from "react";
-import carousel1 from "@/assets/carousel-1-new.gif";
-import carousel2 from "@/assets/carousel-2-new.gif";
-import carousel3 from "@/assets/carousel-3-new.gif";
+import carousel1 from "@/assets/hero-carousel-1.gif";
+import carousel2 from "@/assets/hero-carousel-2.gif";
+import carousel3 from "@/assets/hero-carousel-3.gif";
 import { trackClick, ANALYTICS_EVENTS } from "@/lib/analytics";
 
 interface CarouselItem {
