@@ -27,6 +27,9 @@ export const ANALYTICS_EVENTS = {
   
   // Hero
   HERO_START_FREE: 'hero_click_start_free',
+  HERO_CAROUSEL_1: 'hero_click_carousel_1',
+  HERO_CAROUSEL_2: 'hero_click_carousel_2',
+  HERO_CAROUSEL_3: 'hero_click_carousel_3',
   
   // Content Showcase
   SHOWCASE_PAPER: 'showcase_click_paper',
