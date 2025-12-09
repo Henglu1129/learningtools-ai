@@ -56,12 +56,13 @@ const ReasonsSection = () => {
       const sectionHeight = rect.height;
       const visibleRatio = sectionVisibleTop / sectionHeight;
       
-      if (visibleRatio < 0.67) {
+      // Delay animation trigger - start at 80% visibility instead of 67%
+      if (visibleRatio < 0.80) {
         setScrollProgress(0);
         return;
       }
       
-      const progress = Math.max(0, Math.min(1, (visibleRatio - 0.67) / 0.33));
+      const progress = Math.max(0, Math.min(1, (visibleRatio - 0.80) / 0.20));
       setScrollProgress(progress);
     };
 
@@ -100,9 +101,9 @@ const ReasonsSection = () => {
   };
 
   return (
-    <section ref={sectionRef} className="py-12 md:py-20 bg-background">
+    <section ref={sectionRef} className="py-12 md:py-20" style={{ backgroundColor: '#E8F4FC' }}>
       <div className="max-w-7xl mx-auto px-4 md:px-10 lg:px-20">
-        <div className="bg-cream border-2 border-border rounded-2xl p-6 md:p-10 shadow-lg">
+        <div className="bg-white border-2 border-border rounded-2xl p-6 md:p-10 shadow-lg">
           {/* Title */}
           <h2 className="text-2xl md:text-4xl lg:text-5xl text-center mb-8">
             One account, all the tools you need
