@@ -75,16 +75,17 @@ const ReasonsSection = () => {
     const convergeFactor = Math.min(scrollProgress * 1.5, 1);
     const baseDistance = (index + 1) * 35;
     const translateX = side === 'left' 
-      ? -baseDistance * (1 - convergeFactor)
+      ? baseDistance * (1 - convergeFactor) * -1
       : baseDistance * (1 - convergeFactor);
     
-    const opacity = Math.max(0, 1 - convergeFactor * 1.2);
-    const scale = Math.max(0, 1 - convergeFactor * 0.8);
+    // Icons start visible (opacity 1), fade out as they converge
+    const opacity = scrollProgress === 0 ? 1 : Math.max(0, 1 - convergeFactor * 1.2);
+    const scale = scrollProgress === 0 ? 1 : Math.max(0.2, 1 - convergeFactor * 0.8);
     
     return {
       transform: `translateX(${translateX}px) scale(${scale})`,
       opacity: opacity,
-      transition: 'transform 0.1s ease-out, opacity 0.1s ease-out',
+      transition: 'transform 0.3s ease-out, opacity 0.3s ease-out',
     };
   };
 
