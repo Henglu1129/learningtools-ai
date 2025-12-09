@@ -120,7 +120,7 @@ const HeroSection = () => {
           <p className="text-base md:text-lg text-foreground/70 mb-8 leading-relaxed max-w-xl mx-auto lg:mx-0">
             AI agents that read, explain, organize, and quiz for you—so you can finally learn without burnout.
           </p>
-          <Button variant="hero" size="lg" className="font-mono text-base gap-2" asChild>
+          <Button variant="default" size="lg" className="font-mono text-base gap-2 bg-foreground text-background hover:bg-foreground/90" asChild>
             <a 
               href="https://mulerun.com/agent-store"
               onClick={() => trackClick(ANALYTICS_EVENTS.HERO_START_FREE)}
