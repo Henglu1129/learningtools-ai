@@ -73,7 +73,7 @@ const ReasonsSection = () => {
 
   const getSideIconStyle = (index: number, side: 'left' | 'right') => {
     const convergeFactor = Math.min(scrollProgress * 1.5, 1);
-    const baseDistance = (index + 1) * 70;
+    const baseDistance = (index + 1) * 35;
     const translateX = side === 'left' 
       ? -baseDistance * (1 - convergeFactor)
       : baseDistance * (1 - convergeFactor);

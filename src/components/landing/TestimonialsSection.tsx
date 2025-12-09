@@ -1,6 +1,6 @@
-import avatarAnselm from "@/assets/avatar-anselm.png";
-import avatarMaya from "@/assets/avatar-maya.png";
-import avatarLauren from "@/assets/avatar-lauren.png";
+import avatarAnselm from "@/assets/avatar-anselm-new.png";
+import avatarJames from "@/assets/avatar-james.png";
+import avatarLauren from "@/assets/avatar-lauren-new.png";
 import avatarAhmed from "@/assets/avatar-ahmed.png";
 import avatarClaire from "@/assets/avatar-claire.png";
 import avatarMarcus from "@/assets/avatar-marcus.png";
@@ -15,7 +15,7 @@ const testimonials = [
   {
     name: "James Patterson",
     role: "Product Manager",
-    avatar: avatarMaya,
+    avatar: avatarJames,
     content: "Mindmap Generator is my thinking canvas. I paste messy notes and links, and it structures them into editable nodes. I regroup, tag risks, and assign owners. Kickoff meetings start with a shared map, not loose docs, and projects move with clearer scope and dependencies.",
   },
   {
