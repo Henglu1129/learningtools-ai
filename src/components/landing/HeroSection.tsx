@@ -67,7 +67,7 @@ const HeroSection = () => {
               <div className="w-2.5 h-2.5 rounded-full bg-border" />
               <div className="w-2.5 h-2.5 rounded-full bg-border" />
             </div>
-            <div className="relative aspect-[4/3] bg-gradient-to-br from-highlight/30 via-purple/30 to-highlight/50">
+            <div className="relative aspect-[16/9] bg-gradient-to-br from-highlight/30 via-purple/30 to-highlight/50">
               <div 
                 className="flex transition-transform duration-500 ease-in-out h-full"
                 style={{ transform: `translateX(-${currentIndex * 100}%)` }}
@@ -77,7 +77,7 @@ const HeroSection = () => {
                     key={index}
                     src={img}
                     alt={`Carousel ${index + 1}`}
-                    className="w-full h-full object-contain flex-shrink-0"
+                    className="w-full h-full object-cover flex-shrink-0"
                   />
                 ))}
               </div>

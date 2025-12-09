@@ -126,7 +126,7 @@ const FeaturesSection = () => {
                 key={index}
                 className="bg-card border-2 border-border rounded-lg overflow-hidden w-full md:w-72 hover:shadow-lg transition-shadow"
               >
-                <div className="aspect-[4/3] overflow-hidden">
+                <div className="aspect-[16/9] overflow-hidden">
                   <img
                     src={agent.image}
                     alt={agent.name}
