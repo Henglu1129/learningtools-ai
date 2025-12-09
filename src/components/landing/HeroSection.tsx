@@ -1,25 +1,38 @@
 // HeroSection - main landing page hero
 import { Button } from "@/components/ui/button";
 import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { trackClick, ANALYTICS_EVENTS } from "@/lib/analytics";
 
-const carouselVideos = [
-  "/videos/carousel-1.mp4",
-  "/videos/carousel-2.mp4",
-  "/videos/carousel-3.mp4"
+const carouselItems = [
+  {
+    video: "/videos/carousel-1.mp4",
+    link: "https://mulerun.com/@Ailurus/general-browser-operator",
+    eventName: ANALYTICS_EVENTS.HERO_CAROUSEL_1,
+  },
+  {
+    video: "/videos/carousel-2.mp4",
+    link: "https://mulerun.com/@QuickBI/smart-q",
+    eventName: ANALYTICS_EVENTS.HERO_CAROUSEL_2,
+  },
+  {
+    video: "/videos/carousel-3.mp4",
+    link: "https://mulerun.com/@createAny/knowledge-card-factory",
+    eventName: ANALYTICS_EVENTS.HERO_CAROUSEL_3,
+  },
 ];
 
 const HeroSection = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
+  const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
 
   const nextSlide = useCallback(() => {
-    setCurrentIndex((prev) => (prev + 1) % carouselVideos.length);
+    setCurrentIndex((prev) => (prev + 1) % carouselItems.length);
   }, []);
 
   const prevSlide = useCallback(() => {
-    setCurrentIndex((prev) => (prev - 1 + carouselVideos.length) % carouselVideos.length);
+    setCurrentIndex((prev) => (prev - 1 + carouselItems.length) % carouselItems.length);
   }, []);
 
   useEffect(() => {
@@ -31,6 +44,20 @@ const HeroSection = () => {
 
     return () => clearInterval(interval);
   }, [isPaused, nextSlide]);
+
+  // Control video playback based on current index
+  useEffect(() => {
+    videoRefs.current.forEach((video, index) => {
+      if (video) {
+        if (index === currentIndex) {
+          video.currentTime = 0;
+          video.play().catch(() => {});
+        } else {
+          video.pause();
+        }
+      }
+    });
+  }, [currentIndex]);
 
   return (
     <section className="px-4 md:px-10 lg:px-20 py-12 md:py-20 bg-background">
@@ -74,16 +101,24 @@ const HeroSection = () => {
                 className="flex transition-transform duration-500 ease-in-out h-full"
                 style={{ transform: `translateX(-${currentIndex * 100}%)` }}
               >
-                {carouselVideos.map((video, index) => (
-                  <video
+                {carouselItems.map((item, index) => (
+                  <a
                     key={index}
-                    src={video}
-                    autoPlay
-                    loop
-                    muted
-                    playsInline
-                    className="w-full h-full object-cover flex-shrink-0"
-                  />
+                    href={item.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-full h-full flex-shrink-0 cursor-pointer"
+                    onClick={() => trackClick(item.eventName)}
+                  >
+                    <video
+                      ref={(el) => (videoRefs.current[index] = el)}
+                      src={item.video}
+                      loop
+                      muted
+                      playsInline
+                      className="w-full h-full object-cover"
+                    />
+                  </a>
                 ))}
               </div>
               
@@ -105,7 +140,7 @@ const HeroSection = () => {
               
               {/* Dots indicator */}
               <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-2">
-                {carouselVideos.map((_, index) => (
+                {carouselItems.map((_, index) => (
                   <button
                     key={index}
                     onClick={() => setCurrentIndex(index)}
