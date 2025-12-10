@@ -1,6 +1,6 @@
 import { Menu, X, ArrowRight } from "lucide-react";
 import { useState } from "react";
-import mulerunLogo from "@/assets/mulerun-logo.png";
+import mulerunLogoFull from "@/assets/mulerun-logo-full.png";
 import { trackClick, ANALYTICS_EVENTS } from "@/lib/analytics";
 
 const Header = () => {
@@ -13,13 +13,10 @@ const Header = () => {
           href="https://mulerun.com/" 
           target="_blank"
           rel="noopener noreferrer"
-          className="flex items-center gap-2 bg-stone-800 rounded-sm py-1 pr-2 pl-0.5 h-10 hover:opacity-90 transition-opacity"
+          className="flex items-center hover:opacity-90 transition-opacity"
           onClick={() => trackClick(ANALYTICS_EVENTS.NAV_LOGO)}
         >
-          <div className="w-9 h-9 bg-card rounded-sm border border-border/10 flex items-center justify-center overflow-hidden">
-            <img src={mulerunLogo} alt="MuleRun" className="w-7 h-7 object-contain" />
-          </div>
-          <span className="font-body font-bold text-lg text-white">MuleRun</span>
+          <img src={mulerunLogoFull} alt="MuleRun" className="h-10 object-contain" />
         </a>
 
         <nav className="hidden lg:flex items-center gap-7">
