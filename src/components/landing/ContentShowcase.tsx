@@ -11,7 +11,7 @@ const contentCards = [
     title: "Wasting Hours — and Still Know Nothing?",
     description: "You clicked, scrolled, skimmed… for 6 hours. And you still can't explain the core idea. Time isn't slipping away. It's being stolen.",
     image: showcasePaper,
-    ctaUrl: "https://mulerun.com/agents/3dce446b-c3fc-44c0-8595-6ed9b247c095/shared-sessions/a6660fb7-2c93-4c4f-afb0-895157d324b1",
+    ctaUrl: "https://mulerun.com/agents/577765da-c912-4cc2-9dac-80d0035058ca/shared-sessions/d53f6fbd-5f5d-4911-8e89-f283d3e804d3",
     eventName: ANALYTICS_EVENTS.SHOWCASE_PAPER,
   },
   {
