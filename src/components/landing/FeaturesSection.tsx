@@ -48,7 +48,7 @@ const miniAgents = [
   {
     name: "Generate topic overviews",
     image: agentPaperNew,
-    link: "https://mulerun.com/agents/3dce446b-c3fc-44c0-8595-6ed9b247c095/",
+    link: "https://mulerun.com/@charlin/paper-review-agent-universal",
     eventName: ANALYTICS_EVENTS.AGENT_PAPER,
   },
   {
