@@ -4,8 +4,8 @@ import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
 import { useState, useEffect, useCallback, useRef } from "react";
 import carousel1 from "@/assets/hero-carousel-1.gif";
 import carousel2 from "@/assets/hero-carousel-2.gif";
-import carousel3 from "@/assets/hero-carousel-3.gif";
 import { trackClick, ANALYTICS_EVENTS } from "@/lib/analytics";
+import { useMulerunAuth } from "@/hooks/use-mulerun-auth";
 
 interface CarouselItem {
   gif: string;
@@ -16,22 +16,18 @@ interface CarouselItem {
 const carouselItems: CarouselItem[] = [
   {
     gif: carousel1,
-    link: "https://mulerun.com/@Ailurus/general-browser-operator",
+    link: "https://mulerun.com/agents/ca8f87b0-cc33-4e18-973d-04031871e731",
     eventName: ANALYTICS_EVENTS.CAROUSEL_SLIDE_1,
   },
   {
     gif: carousel2,
-    link: "https://mulerun.com/@QuickBI/smart-q",
+    link: "https://mulerun.com/agents/779e2356-11e7-4fe0-90a3-4a1e9506c3b0",
     eventName: ANALYTICS_EVENTS.CAROUSEL_SLIDE_2,
-  },
-  {
-    gif: carousel3,
-    link: "https://mulerun.com/@createAny/knowledge-card-factory",
-    eventName: ANALYTICS_EVENTS.CAROUSEL_SLIDE_3,
   },
 ];
 
 const HeroSection = () => {
+  const isLoggedIn = useMulerunAuth();
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
   const [loadedGifs, setLoadedGifs] = useState<boolean[]>(new Array(carouselItems.length).fill(false));
@@ -125,7 +121,7 @@ const HeroSection = () => {
               href="https://mulerun.com/agent-store"
               onClick={() => trackClick(ANALYTICS_EVENTS.HERO_START_FREE)}
             >
-              START FREE <ArrowRight className="w-4 h-4" />
+              {isLoggedIn ? "Click here to run!" : "START FREE"} <ArrowRight className="w-4 h-4" />
             </a>
           </Button>
         </div>
