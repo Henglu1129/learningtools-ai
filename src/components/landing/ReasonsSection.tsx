@@ -9,6 +9,7 @@ import iconOtter from "@/assets/icon-otter.png";
 import iconHeygen from "@/assets/icon-heygen.png";
 import iconMiro from "@/assets/icon-miro.png";
 import { trackClick, ANALYTICS_EVENTS } from "@/lib/analytics";
+import { useMulerunAuth } from "@/hooks/use-mulerun-auth";
 
 const leftIcons = [
   { name: "Grammarly", icon: iconGrammarly },
@@ -41,6 +42,7 @@ const benefits = [
 ];
 
 const ReasonsSection = () => {
+  const isLoggedIn = useMulerunAuth();
   const [scrollProgress, setScrollProgress] = useState(0);
   const sectionRef = useRef<HTMLDivElement>(null);
   const [isHovered, setIsHovered] = useState(false);
@@ -225,7 +227,7 @@ const ReasonsSection = () => {
                 href="https://mulerun.com/signin"
                 onClick={() => trackClick(ANALYTICS_EVENTS.REASONS_SIGNUP)}
               >
-                Sign up for free <ArrowRight className="w-4 h-4" />
+                {isLoggedIn ? "Click here to run!" : "Sign up for free"} <ArrowRight className="w-4 h-4" />
               </a>
             </Button>
           </div>
