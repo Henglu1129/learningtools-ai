@@ -1,12 +1,12 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import featureBrowser from "@/assets/feature-browser.png";
-import featureKnowledge from "@/assets/feature-knowledge.png";
-import featureMindmap from "@/assets/feature-mindmap.webp";
+import featureUnderstand from "@/assets/feature-understand.png";
+import featureOrganize from "@/assets/feature-organize.png";
 import featureSmartq from "@/assets/feature-smartq.png";
 import agentPaperNew from "@/assets/hero-carousel-1.gif";
 import agentYoutubeNew from "@/assets/hero-carousel-2.gif";
-import agentExplainNew from "@/assets/hero-carousel-3.gif";
+import polishText from "@/assets/polish-text.gif";
 import { trackClick, ANALYTICS_EVENTS } from "@/lib/analytics";
 
 const features = [
@@ -20,17 +20,17 @@ const features = [
   },
   {
     title: "Understand",
-    description: "Summarize any article you have into a beautifully‑designed knowledge card.",
-    image: featureKnowledge,
-    link: "https://mulerun.com/agents/05ad0e6e-96da-4eb4-b195-5aa75fd172d8",
+    description: "Understand any PDF instantly.",
+    image: featureUnderstand,
+    link: "https://mulerun.com/agents/9f2af205-abf8-435e-a29f-0cfa00daa24a",
     imagePosition: "left",
     eventName: ANALYTICS_EVENTS.FEATURE_KNOWLEDGE,
   },
   {
     title: "Organize",
-    description: "Effortlessly create and export mind maps in FreeMind format.",
-    image: featureMindmap,
-    link: "https://mulerun.com/agents/ed84b6b3-3079e928-f57b-462a-94f8-a041b78534dd",
+    description: "Describe what to fill, turning messy into orderly, actionable documents.",
+    image: featureOrganize,
+    link: "https://mulerun.com/agents/ed84b6b3-201c-4342-83dd-6dd45506f382",
     imagePosition: "right",
     eventName: ANALYTICS_EVENTS.FEATURE_MINDMAP,
   },
@@ -58,9 +58,9 @@ const miniAgents = [
     eventName: ANALYTICS_EVENTS.AGENT_YOUTUBE,
   },
   {
-    name: "Simplify complex pics",
-    image: agentExplainNew,
-    link: "https://mulerun.com/agents/8a6ccf9e-95dd-46a2-98d4-560302fd99e2",
+    name: "Polish any text",
+    image: polishText,
+    link: "https://mulerun.com/agents/6561750c-bef2-41e6-8084-480ac9e08399",
     eventName: ANALYTICS_EVENTS.AGENT_EXPLAIN,
   },
 ];

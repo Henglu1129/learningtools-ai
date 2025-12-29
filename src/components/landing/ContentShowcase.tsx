@@ -3,23 +3,24 @@ import { Button } from "@/components/ui/button";
 import showcasePaper from "@/assets/showcase-paper-v2.gif";
 import showcaseExplain from "@/assets/showcase-explain-v2.gif";
 import showcaseYoutube from "@/assets/showcase-youtube-v2.gif";
+import polishText from "@/assets/polish-text.gif";
 import { trackClick, ANALYTICS_EVENTS } from "@/lib/analytics";
 
 const contentCards = [
   {
     id: 1,
-    title: "Wasting Hours — and Still Know Nothing?",
-    description: "You clicked, scrolled, skimmed… for 6 hours. And you still can't explain the core idea. Time isn't slipping away. It's being stolen.",
+    title: "Searched Everywhere — Found Nothing?",
+    description: "You typed every keyword, flipped through ten databases, dug into obscure academic forums… but can not find the paper you actually need.",
     image: showcasePaper,
     ctaUrl: "https://mulerun.com/agents/577765da-c912-4cc2-9dac-80d0035058ca/shared-sessions/d53f6fbd-5f5d-4911-8e89-f283d3e804d3",
     eventName: ANALYTICS_EVENTS.SHOWCASE_PAPER,
   },
   {
     id: 2,
-    title: "Confused by Complex Images and Diagrams?",
-    description: "That flowchart, infographic, or technical diagram looks like gibberish. You stare at it for 20 minutes but still can't figure out what it means. Let AI break it down for you like you're five.",
-    image: showcaseExplain,
-    ctaUrl: "https://mulerun.com/agents/8a6ccf9e-95dd-46a2-98d4-560302fd99e2/shared-sessions/84b2c823-2703-4b70-a217-5f63f913a5d3",
+    title: "Got AI-Generated Text — But It Sounds Robotic?",
+    description: "Flat tone. Repetitive phrases. Zero spark. It's technically correct… Just polish it instead.",
+    image: polishText,
+    ctaUrl: "https://mulerun.com/agents/6561750c-bef2-41e6-8084-480ac9e08399/shared-sessions/6f16dd7c-942e-4b2e-9d8c-c54ecba02546",
     eventName: ANALYTICS_EVENTS.SHOWCASE_EXPLAIN,
   },
   {
