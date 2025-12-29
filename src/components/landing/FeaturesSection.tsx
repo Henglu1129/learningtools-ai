@@ -4,8 +4,8 @@ import featureBrowser from "@/assets/feature-browser.png";
 import featureUnderstand from "@/assets/feature-understand.png";
 import featureOrganize from "@/assets/feature-organize.png";
 import featureSmartq from "@/assets/feature-smartq.png";
-import agentPaperNew from "@/assets/hero-carousel-1.gif";
-import agentYoutubeNew from "@/assets/hero-carousel-2.gif";
+import agentPaperNew from "@/assets/paperreview-5.gif";
+import agentYoutubeNew from "@/assets/youtube_quick-5.gif";
 import polishText from "@/assets/polish-text.gif";
 import { trackClick, ANALYTICS_EVENTS } from "@/lib/analytics";
 
